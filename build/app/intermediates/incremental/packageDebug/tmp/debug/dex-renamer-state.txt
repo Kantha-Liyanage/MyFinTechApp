@@ -1,0 +1,4 @@
+#Tue Sep 21 12:45:17 IST 2021
+base.0=/home/kantha/Documents/GitHub/SLIIT-MSc-Works/EM/em_fintech_app/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
