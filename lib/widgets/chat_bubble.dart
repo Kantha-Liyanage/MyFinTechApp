@@ -1,4 +1,4 @@
-import 'package:em_fintech_app/models/chat.dart';
+import 'package:my_fintech_app/models/chat_message.dart';
 import 'package:flutter/material.dart';
 
 class ChatBubble extends StatefulWidget {
@@ -20,7 +20,7 @@ class _ChatBubbleState extends State<ChatBubble> {
     bool isDeviceMessageMode = false;
 
     switch (widget.chatMessage.messageType) {
-      case ChatMessageTypes.USER_MESSAGE:
+      case ChatMessageType.USER_MESSAGE:
         messageColor = Colors.greenAccent.shade100;
         messageAlignment = CrossAxisAlignment.end;
         messageRadius = const BorderRadius.only(
@@ -29,7 +29,7 @@ class _ChatBubbleState extends State<ChatBubble> {
           bottomRight: Radius.circular(15.0),
         );
         break;
-      case ChatMessageTypes.SERVER_MESSAGE:
+      case ChatMessageType.SERVER_MESSAGE:
         messageColor = Colors.white;
         messageAlignment = CrossAxisAlignment.start;
         messageRadius = const BorderRadius.only(

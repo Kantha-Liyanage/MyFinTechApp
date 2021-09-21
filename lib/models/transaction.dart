@@ -1,4 +1,4 @@
-import 'chat.dart';
+import 'chat_message.dart';
 
 class Transaction {
   final int id;
