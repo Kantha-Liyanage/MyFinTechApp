@@ -11,19 +11,30 @@ class AccountBox extends StatefulWidget {
 }
 
 class _AccountBoxState extends State<AccountBox> {
-  String dropdownValue = 'Debit';
+  AccountType dropdownValue = AccountType.Asset;
+  bool editable = false;
 
   @override
   Widget build(BuildContext context) {
+    return Container(
+      child: (editable?buildEditableWidget():buildViewOnlyWidget()) 
+    );
+  }
+
+  buildEditableWidget() {
     return Row(
       children: [
         Expanded(
-          flex: 4,
-          child: Text(widget.account.name),
+          flex: 3,
+          child: TextField(
+            controller: TextEditingController()..text = widget.account.name,
+            decoration: const InputDecoration(
+                border: UnderlineInputBorder(), labelText: 'Account Name'),
+          ),
         ),
         Expanded(
           flex: 1,
-          child: DropdownButton<String>(
+          child: DropdownButton<AccountType>(
             value: dropdownValue,
             icon: const Icon(Icons.keyboard_arrow_down_sharp),
             iconSize: 24,
@@ -31,20 +42,53 @@ class _AccountBoxState extends State<AccountBox> {
             style: const TextStyle(color: Colors.deepPurple),
             underline: Container(
               height: 2,
-              color: Colors.deepPurpleAccent,
+              color: Colors.blue,
             ),
-            onChanged: (String? newValue) {
+            onChanged: (AccountType? newValue) {
               setState(() {
                 dropdownValue = newValue!;
               });
             },
-            items: <String>['Debit', 'Credit']
-                .map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
+            items: AccountTypeWithDescription.getAll()
+                .map((AccountTypeWithDescription value) {
+              return DropdownMenuItem<AccountType>(
+                value: value.accountType,
+                child: Text(value.name),
               );
             }).toList(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  buildViewOnlyWidget() {
+    return Row(
+      children: [
+        Expanded(
+          flex: 3,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start, 
+            children: [
+              Text(widget.account.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+              Container(
+                padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                child: const Text('Current Balance'),
+              ),
+            ]
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end, 
+            children: [
+              Text(AccountTypeWithDescription.get(dropdownValue).name),
+              Container(
+                padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                child: Text(widget.account.currentBalance.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
+              ),
+            ],
           ),
         ),
       ],

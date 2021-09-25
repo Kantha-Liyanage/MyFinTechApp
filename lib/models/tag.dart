@@ -1,7 +1,11 @@
 class Tag {
   String name;
-  final String createdDate;
-  final String createdTime;
+  double budgetAmount;
+  double utilizedAmount;
 
-  Tag(this.name, this.createdDate, this.createdTime);
+  Tag(this.name, this.budgetAmount, this.utilizedAmount);
+
+  double getBalance() {
+    return budgetAmount - utilizedAmount;
+  }
 }

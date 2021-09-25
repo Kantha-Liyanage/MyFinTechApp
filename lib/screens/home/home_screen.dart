@@ -1,4 +1,5 @@
 import 'package:my_fintech_app/screens/account/account_screen.dart';
+import 'package:my_fintech_app/screens/budget/budget_screen.dart';
 import 'package:my_fintech_app/screens/transaction/transaction_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -38,8 +39,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 text: 'Accounts',
               ),
               Tab(
-                icon: Icon(Icons.tag_sharp),
-                text: 'Budgets',
+                icon: Icon(Icons.tune_sharp),
+                text: 'Budget',
               ),
             ],
           ),
@@ -53,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: AccountScreen(),
             ),
             Center(
-              child: Text("It's sunny here"),
+              child: BudgetScreen(),
             ),
           ],
         ),

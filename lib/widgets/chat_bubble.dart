@@ -60,8 +60,8 @@ class _ChatBubbleState extends State<ChatBubble> {
       crossAxisAlignment: messageAlignment,
       children: <Widget>[
         Container(
-          margin: const EdgeInsets.all(8.0),
-          padding: const EdgeInsets.all(8.0),
+          margin: const EdgeInsets.fromLTRB(4, 4, 4, 16),
+          padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -81,7 +81,7 @@ class _ChatBubbleState extends State<ChatBubble> {
               Visibility(
                 visible: !isDeviceMessageMode,
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 78.0),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 4, 16),
                   child: Text(widget.chatMessage.message),
                 ),
               ),
