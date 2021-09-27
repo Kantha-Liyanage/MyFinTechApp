@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class TabTitle extends StatelessWidget {
-  String text;
+  final String text;
 
-  TabTitle(this.text, {Key? key}) : super(key: key);
+  const TabTitle(this.text, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(0, 20, 0, 5),
       child: Text(text,
         style: const TextStyle(
           fontWeight: FontWeight.bold,

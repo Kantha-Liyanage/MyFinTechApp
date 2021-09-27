@@ -2,7 +2,7 @@ import 'package:my_fintech_app/models/chat_message.dart';
 import 'package:my_fintech_app/widgets/chat_box.dart';
 import 'package:my_fintech_app/widgets/chat_bubble.dart';
 import 'package:flutter/material.dart';
-import 'package:my_fintech_app/widgets/pie_chart_bubble.dart';
+import 'package:my_fintech_app/widgets/pie_chart_chat_bubble.dart';
 
 class TransactionScreen extends StatefulWidget {
   const TransactionScreen({Key? key}) : super(key: key);
@@ -26,8 +26,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
       ChatBubble(ChatMessage('This is a test message. This is a test message. This is a test message.', ChatMessageType.USER_MESSAGE, '2021-09-14', '13:00:00', true)),
       ChatBubble(ChatMessage('This is a test message', ChatMessageType.SERVER_MESSAGE, '2021-09-14', '13:00:00', true)),
       ChatBubble(ChatMessage('@Cash#Grocery+1300', ChatMessageType.USER_MESSAGE, '2021-09-14', '13:00:00', false)),
-      PieChartBubble('Pie 1', dataMap),
-      PieChartBubble('Pie 2', dataMap),
+      PieChartChatBubble('Pie 1', dataMap),
+      PieChartChatBubble('Pie 2', dataMap),
+      PieChartChatBubble('Pie 2', dataMap),
       ChatBubble(ChatMessage('This is a test message', ChatMessageType.SERVER_MESSAGE, '2021-09-14', '13:00:00', true)),
       ChatBubble(ChatMessage('This is a test message', ChatMessageType.SERVER_MESSAGE, '2021-09-14', '13:00:00', true)),
       ChatBubble(ChatMessage('2021-09-21', ChatMessageType.DEVICE_MESSAGE, '2021-09-14', '13:00:00', true)),

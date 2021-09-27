@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
-  static const String _title = 'MyFinApp';
+  static const String _title = 'FinChat';
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -21,13 +21,19 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text(HomeScreen._title),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.more_vert_sharp),
-              tooltip: 'More options',
-              onPressed: () {},
-            ),
-          ], 
+          actions: <Widget>[
+          PopupMenuButton<String>(
+            onSelected: handleAppBarMenuItemClick,
+            itemBuilder: (BuildContext context) {
+              return {'New Account', 'New Budget Item', 'Settings', 'Logout'}.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          ),
+        ], 
           bottom: const TabBar(
             tabs: <Widget>[
               Tab(
@@ -60,5 +66,18 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  void handleAppBarMenuItemClick(String value) {
+    switch (value) {
+      case 'New Account':
+        break;
+      case 'New Budget Item':
+        break;
+      case 'Settings':
+        break;
+      case 'Logout':
+        break;
+    }
   }
 }
