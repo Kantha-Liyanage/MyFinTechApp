@@ -16,19 +16,23 @@ class _TransactionScreenState extends State<TransactionScreen> {
   @override
   Widget build(BuildContext context) {
     Map<String, double> dataMap = {
-      "Flutter": 5,
-      "React": 3,
-      "Xamarin": 2,
-      "Ionic": 2,
+      "Grocery": 5,
+      "Clothing": 3,
+      "Utility Bills": 2,
+      "Medicine": 2,
+      "Education": 2,
+      "Charity": 2,
+      "Parents": 2,
+      "Hobby": 2,
     };
 
     final List<Widget> chatWidgets = <Widget>[
       ChatBubble(ChatMessage('This is a test message. This is a test message. This is a test message.', ChatMessageType.USER_MESSAGE, '2021-09-14', '13:00:00', true)),
       ChatBubble(ChatMessage('This is a test message', ChatMessageType.SERVER_MESSAGE, '2021-09-14', '13:00:00', true)),
       ChatBubble(ChatMessage('@Cash#Grocery+1300', ChatMessageType.USER_MESSAGE, '2021-09-14', '13:00:00', false)),
-      PieChartChatBubble('Pie 1', dataMap),
-      PieChartChatBubble('Pie 2', dataMap),
-      PieChartChatBubble('Pie 2', dataMap),
+      PieChartChatBubble('', dataMap),
+      PieChartChatBubble('', dataMap),
+      PieChartChatBubble('', dataMap),
       ChatBubble(ChatMessage('This is a test message', ChatMessageType.SERVER_MESSAGE, '2021-09-14', '13:00:00', true)),
       ChatBubble(ChatMessage('This is a test message', ChatMessageType.SERVER_MESSAGE, '2021-09-14', '13:00:00', true)),
       ChatBubble(ChatMessage('2021-09-21', ChatMessageType.DEVICE_MESSAGE, '2021-09-14', '13:00:00', true)),

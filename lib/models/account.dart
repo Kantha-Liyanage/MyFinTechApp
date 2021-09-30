@@ -1,11 +1,36 @@
-class Account {
-  String name;
-  AccountType accountType;
-  double currentBalance;
-  String createdDate;
-  String createdTime;
+import 'package:flutter/foundation.dart';
 
-  Account(this.name, this.accountType, this.currentBalance, this.createdDate, this.createdTime);
+class Account extends ChangeNotifier{
+  String _name;
+  AccountType _accountType;
+  double _currentBalance;
+  bool _editable = false;
+
+  Account(this._name, this._accountType, this._currentBalance);
+
+  String get name => _name;
+  set name(String name) {
+    _name = name;
+    notifyListeners();
+  }
+
+  AccountType get accountType => _accountType;
+  set accountType(AccountType accountType) {
+    _accountType = accountType;
+    notifyListeners();
+  }
+
+  double get currentBalance => _currentBalance;
+  set currentBalance(double currentBalance) {
+    _currentBalance = currentBalance;
+    notifyListeners();
+  }
+
+  bool get editable => _editable;
+  set editable(bool editable) {
+    _editable = editable;
+    notifyListeners();
+  }
 }
 
 class AccountTypeWithDescription {

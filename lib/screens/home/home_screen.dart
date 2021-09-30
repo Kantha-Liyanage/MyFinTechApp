@@ -3,16 +3,11 @@ import 'package:my_fintech_app/screens/budget/budget_screen.dart';
 import 'package:my_fintech_app/screens/transaction/transaction_screen.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   static const String _title = 'FinChat';
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

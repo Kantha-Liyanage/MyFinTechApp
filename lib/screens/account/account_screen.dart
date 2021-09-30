@@ -1,39 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:my_fintech_app/models/account.dart';
-import 'package:my_fintech_app/widgets/account_box.dart';
+import 'package:my_fintech_app/models/accounts_list.dart';
+import 'package:my_fintech_app/widgets/account_list_item.dart';
 import 'package:my_fintech_app/widgets/tab_title.dart';
+import 'package:provider/provider.dart';
 
-class AccountScreen extends StatefulWidget {
-  const AccountScreen({Key? key}) : super(key: key);
-
-  @override
-  _AccountScreenState createState() => _AccountScreenState();
-}
-
-class _AccountScreenState extends State<AccountScreen> {
-  List<Account> accounts = <Account>[
-    Account('Cash', AccountType.Asset, 12500.00, '2021-09-21', '13:34:00'),
-    Account('Seylan', AccountType.Asset, 45000.00, '2021-09-21', '13:34:00'),
-    Account('HSBC CC', AccountType.Liability, 100000.00, '2021-09-21', '13:34:00'),
-    Account('HNB CC', AccountType.Liability, 100000.00, '2021-09-21', '13:34:00'),
-    Account('SYLN CC', AccountType.Liability, 500000.00, '2021-09-21', '13:34:00')
-  ];
+class AccountScreen extends StatelessWidget {
+  const AccountScreen({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    AccountsList accounts = Provider.of<AccountsList>(context, listen: true);
+
     return Column(
-      children: [ 
-        TabTitle('Accounts'),
+      children: [
+        const TabTitle('Accounts'),
         Expanded(
           flex: 1,
           child: Padding(
             padding: const EdgeInsets.all(8),
             child: ListView.separated(
               padding: const EdgeInsets.all(8),
-              itemCount: accounts.length,
+              itemCount: accounts.items.length,
               itemBuilder: (BuildContext context, int index) {
-                return AccountBox(accounts[index]);
-              }, 
+                return ChangeNotifierProvider.value(
+                  value: accounts.items[index],
+                  child: const AccountListItem(),
+                );  
+                //return AccountBox(accounts.items[index]);
+              },
               separatorBuilder: (BuildContext context, int index) {
                 return const Divider(
                   color: Colors.blue,

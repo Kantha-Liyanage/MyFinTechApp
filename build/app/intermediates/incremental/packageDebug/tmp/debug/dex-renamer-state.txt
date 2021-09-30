@@ -1,4 +1,4 @@
-#Mon Sep 27 17:53:10 IST 2021
+#Fri Oct 01 02:40:40 IST 2021
 base.0=/home/kantha/Documents/GitHub/MyFinTechApp/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

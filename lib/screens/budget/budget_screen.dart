@@ -1,37 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:my_fintech_app/models/tag.dart';
-import 'package:my_fintech_app/widgets/budget_box.dart';
+import 'package:my_fintech_app/models/tags_list.dart';
+import 'package:my_fintech_app/widgets/budget_list_item.dart';
 import 'package:my_fintech_app/widgets/tab_title.dart';
+import 'package:provider/provider.dart';
 
-class BudgetScreen extends StatefulWidget {
+class BudgetScreen extends StatelessWidget {
   const BudgetScreen({Key? key}) : super(key: key);
-
-  @override
-  _BudgetScreenState createState() => _BudgetScreenState();
-}
-
-class _BudgetScreenState extends State<BudgetScreen> {
-  List<Tag> tags = <Tag>[
-    Tag('#Grocery', 22500, 1200.0),
-    Tag('#Bills#Telecom', 8000, 5000),
-    Tag('#Entertainment', 2000, 500),
-    Tag('#Meals', 5000, 2000)
-  ];
-
+ 
   @override
   Widget build(BuildContext context) {
+    TagsList tags = Provider.of<TagsList>(context, listen: true);
+
     return Column(
       children: [
-        TabTitle('Monthly Budget'),
+        const TabTitle('Monthly Budget'),
         Expanded(
           flex: 1,
           child: Padding(
             padding: const EdgeInsets.all(8),
             child: ListView.separated(
               padding: const EdgeInsets.all(8),
-              itemCount: tags.length,
+              itemCount: tags.items.length,
               itemBuilder: (BuildContext context, int index) {
-                return BudgetBox(tags[index]);
+                return ChangeNotifierProvider.value(
+                  value: tags.items[index],
+                  child: const BudgetListItem(),
+                ); 
               }, 
               separatorBuilder: (BuildContext context, int index) {
                 return const Divider(
