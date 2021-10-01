@@ -46,15 +46,15 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: <Widget>[
             Center(
               child: TransactionScreen(),
             ),
-            Center(
+            const Center(
               child: AccountScreen(),
             ),
-            Center(
+            const Center(
               child: BudgetScreen(),
             ),
           ],

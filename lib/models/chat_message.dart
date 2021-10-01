@@ -1,13 +1,24 @@
-class ChatMessage {
-  
-  final String message;
-  final ChatMessageType messageType;
-  final String createdDate;
-  final String createdTime;
-  bool savedOnline;
+import 'package:flutter/foundation.dart';
 
-  ChatMessage(this.message, this.messageType, this.createdDate,
-      this.createdTime, this.savedOnline);
+class ChatMessage extends ChangeNotifier {
+  String message = '';
+  ChatMessageType messageType = ChatMessageType.device_message;
+  String createdDate = '';
+  String createdTime = '';
+  bool _savedOnline = false;
+  bool _deleted = false;
+
+  bool get savedOnline => _savedOnline;
+  set savedOnline(bool savedOnline) {
+    _savedOnline = savedOnline;
+    notifyListeners();
+  } 
+
+  bool get deleted => _deleted;
+  set deleted(bool deleted) {
+    _deleted = deleted;
+    notifyListeners();
+  }    
 }
 
-enum ChatMessageType { USER_MESSAGE, SERVER_MESSAGE, DEVICE_MESSAGE }
+enum ChatMessageType { user_message, server_message, device_message }

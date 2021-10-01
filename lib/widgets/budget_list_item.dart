@@ -74,7 +74,7 @@ class BudgetListItem extends StatelessWidget {
                 controller: TextEditingController()..text = tag.name,
                 decoration: const InputDecoration(
                     border: UnderlineInputBorder(), labelText: 'Account Name'),
-                onSubmitted: (String newValue) {
+                onChanged: (String newValue) {
                   if (newValue.trim() != '') {
                     tag.name = newValue;
                   }
@@ -91,7 +91,7 @@ class BudgetListItem extends StatelessWidget {
                   controller: TextEditingController()
                     ..text = tag.budgetAmount.toString(),
                   keyboardType: TextInputType.number,
-                  onSubmitted: (String newValue) {
+                  onChanged: (String newValue) {
                     if (newValue.trim() != '') {
                       tag.budgetAmount = double.parse(newValue);
                     }

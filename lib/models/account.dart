@@ -41,8 +41,8 @@ class AccountTypeWithDescription {
 
   static List<AccountTypeWithDescription> getAll() {
     List<AccountTypeWithDescription> list = <AccountTypeWithDescription>[
-      AccountTypeWithDescription('Asset', AccountType.Asset),
-      AccountTypeWithDescription('Liability', AccountType.Liability),
+      AccountTypeWithDescription('Asset', AccountType.asset),
+      AccountTypeWithDescription('Liability', AccountType.liability),
     ];
     return list;
   }
@@ -53,4 +53,4 @@ class AccountTypeWithDescription {
   }
 }
 
-enum AccountType { Asset, Liability }
+enum AccountType { asset, liability }

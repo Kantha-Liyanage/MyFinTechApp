@@ -39,7 +39,7 @@ class AccountListItem extends StatelessWidget {
                 controller: TextEditingController()..text = account.name,
                 decoration: const InputDecoration(
                     border: UnderlineInputBorder(), labelText: 'Account Name'),
-                onSubmitted: (String newValue) {
+                onChanged: (String newValue) {
                   if (newValue.trim() != '') {
                     tmpName = newValue;
                   }

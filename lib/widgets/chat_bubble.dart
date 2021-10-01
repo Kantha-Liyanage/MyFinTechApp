@@ -1,26 +1,23 @@
 import 'package:my_fintech_app/models/chat_message.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class ChatBubble extends StatefulWidget {
-  ChatMessage chatMessage;
+class ChatBubble extends StatelessWidget {
 
-  ChatBubble(this.chatMessage, {Key? key}) : super(key: key);
+  const ChatBubble({Key? key}) : super(key: key);
 
-  @override
-  State<ChatBubble> createState() => _ChatBubbleState();
-}
-
-class _ChatBubbleState extends State<ChatBubble> {
   @override
   Widget build(BuildContext context) {
+    ChatMessage chatMessage = Provider.of<ChatMessage>(context, listen: true);
+
     //for Device Messages
     Color messageColor;
     CrossAxisAlignment messageAlignment;
     BorderRadius messageRadius;
     bool isDeviceMessageMode = false;
 
-    switch (widget.chatMessage.messageType) {
-      case ChatMessageType.USER_MESSAGE:
+    switch (chatMessage.messageType) {
+      case ChatMessageType.user_message:
         messageColor = Colors.greenAccent.shade100;
         messageAlignment = CrossAxisAlignment.end;
         messageRadius = const BorderRadius.only(
@@ -29,7 +26,7 @@ class _ChatBubbleState extends State<ChatBubble> {
           bottomRight: Radius.circular(15.0),
         );
         break;
-      case ChatMessageType.SERVER_MESSAGE:
+      case ChatMessageType.server_message:
         messageColor = Colors.white;
         messageAlignment = CrossAxisAlignment.start;
         messageRadius = const BorderRadius.only(
@@ -52,7 +49,7 @@ class _ChatBubbleState extends State<ChatBubble> {
     }
 
     //Status icon
-    final iconStatus = widget.chatMessage.savedOnline
+    final iconStatus = chatMessage.savedOnline
         ? Icons.cloud_done_rounded
         : Icons.cloud_off_rounded;
 
@@ -76,13 +73,13 @@ class _ChatBubbleState extends State<ChatBubble> {
             children: <Widget>[
               Visibility(
                 visible: isDeviceMessageMode,
-                child: Text(widget.chatMessage.message),
+                child: Text(chatMessage.message),
               ),
               Visibility(
                 visible: !isDeviceMessageMode,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 4, 16),
-                  child: Text(widget.chatMessage.message),
+                  child: Text(chatMessage.message),
                 ),
               ),
               Visibility(
@@ -92,7 +89,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                     right: 0.0,
                     child: Row(
                       children: <Widget>[
-                        Text(widget.chatMessage.createdTime,
+                        Text(chatMessage.createdTime,
                             style: const TextStyle(
                               color: Colors.black38,
                               fontSize: 10.0,

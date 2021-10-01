@@ -1,44 +1,18 @@
-import 'package:my_fintech_app/models/chat_message.dart';
+import 'package:my_fintech_app/models/chat_messages_list.dart';
 import 'package:my_fintech_app/widgets/chat_box.dart';
 import 'package:my_fintech_app/widgets/chat_bubble.dart';
 import 'package:flutter/material.dart';
-import 'package:my_fintech_app/widgets/pie_chart_chat_bubble.dart';
+import 'package:provider/provider.dart';
 
-class TransactionScreen extends StatefulWidget {
-  const TransactionScreen({Key? key}) : super(key: key);
+class TransactionScreen extends StatelessWidget {
+  TransactionScreen({Key? key}) : super(key: key);
 
-  @override
-  _TransactionScreenState createState() => _TransactionScreenState();
-}
+  final ScrollController _scrollController = new ScrollController();
 
-class _TransactionScreenState extends State<TransactionScreen> {
-  
   @override
   Widget build(BuildContext context) {
-    Map<String, double> dataMap = {
-      "Grocery": 5,
-      "Clothing": 3,
-      "Utility Bills": 2,
-      "Medicine": 2,
-      "Education": 2,
-      "Charity": 2,
-      "Parents": 2,
-      "Hobby": 2,
-    };
-
-    final List<Widget> chatWidgets = <Widget>[
-      ChatBubble(ChatMessage('This is a test message. This is a test message. This is a test message.', ChatMessageType.USER_MESSAGE, '2021-09-14', '13:00:00', true)),
-      ChatBubble(ChatMessage('This is a test message', ChatMessageType.SERVER_MESSAGE, '2021-09-14', '13:00:00', true)),
-      ChatBubble(ChatMessage('@Cash#Grocery+1300', ChatMessageType.USER_MESSAGE, '2021-09-14', '13:00:00', false)),
-      PieChartChatBubble('', dataMap),
-      PieChartChatBubble('', dataMap),
-      PieChartChatBubble('', dataMap),
-      ChatBubble(ChatMessage('This is a test message', ChatMessageType.SERVER_MESSAGE, '2021-09-14', '13:00:00', true)),
-      ChatBubble(ChatMessage('This is a test message', ChatMessageType.SERVER_MESSAGE, '2021-09-14', '13:00:00', true)),
-      ChatBubble(ChatMessage('2021-09-21', ChatMessageType.DEVICE_MESSAGE, '2021-09-14', '13:00:00', true)),
-      ChatBubble(ChatMessage('This is a test message', ChatMessageType.USER_MESSAGE, '2021-09-14', '13:00:00', true))
-    ];
-
+    ChatMessagesList chats =
+        Provider.of<ChatMessagesList>(context, listen: true);
 
     return Stack(
       children: [
@@ -48,11 +22,15 @@ class _TransactionScreenState extends State<TransactionScreen> {
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 85),
             child: ListView.builder(
               padding: const EdgeInsets.all(8),
-              itemCount: chatWidgets.length,
+              itemCount: chats.items.length,
+              controller: _scrollController,
               itemBuilder: (BuildContext context, int index) {
-                return chatWidgets[index];
+                return ChangeNotifierProvider.value(
+                  value: chats.items[index],
+                  child: const ChatBubble(),
+                );
               },
-            ),  
+            ),
           ),
         ),
 
@@ -60,10 +38,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
         Expanded(
           child: Align(
             alignment: FractionalOffset.bottomCenter,
-            child: ChatBox(),
+            child: ChatBox(scrollChatToBottom),
           ),
         ),
       ],
     );
+  }
+
+  scrollChatToBottom() {
+    _scrollController.animateTo(_scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
   }
 }
