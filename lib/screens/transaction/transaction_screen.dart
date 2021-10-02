@@ -1,13 +1,13 @@
 import 'package:my_fintech_app/models/chat_messages_list.dart';
-import 'package:my_fintech_app/widgets/chat_box.dart';
-import 'package:my_fintech_app/widgets/chat_bubble.dart';
+import 'package:my_fintech_app/screens/transaction/chat_box.dart';
+import 'package:my_fintech_app/screens/transaction/chat_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TransactionScreen extends StatelessWidget {
   TransactionScreen({Key? key}) : super(key: key);
 
-  final ScrollController _scrollController = new ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class TransactionScreen extends StatelessWidget {
         //Chat ListView
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 85),
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 75),
             child: ListView.builder(
               padding: const EdgeInsets.all(8),
               itemCount: chats.items.length,
@@ -46,6 +46,10 @@ class TransactionScreen extends StatelessWidget {
   }
 
   scrollChatToBottom() {
-    _scrollController.animateTo(_scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent + 70, 
+      duration: const Duration(milliseconds: 2000), 
+      curve: Curves.easeOut
+    );
   }
 }

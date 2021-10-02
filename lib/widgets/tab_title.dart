@@ -10,11 +10,7 @@ class TabTitle extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 20, 0, 5),
       child: Text(text,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 18.0,
-          color: Colors.blue,
-        )
+        style: Theme.of(context).textTheme.headline1,
       ),
     );
   }

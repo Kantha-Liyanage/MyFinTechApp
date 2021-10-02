@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:my_fintech_app/models/chat_message.dart';
+import 'chat_message.dart';
 
 class ChatMessagesList extends ChangeNotifier {
 

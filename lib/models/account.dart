@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class Account extends ChangeNotifier{
+class Account extends ChangeNotifier {
   String _name;
   AccountType _accountType;
   double _currentBalance;

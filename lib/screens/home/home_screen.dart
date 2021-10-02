@@ -1,7 +1,7 @@
-import 'package:my_fintech_app/screens/account/account_screen.dart';
-import 'package:my_fintech_app/screens/budget/budget_screen.dart';
-import 'package:my_fintech_app/screens/transaction/transaction_screen.dart';
 import 'package:flutter/material.dart';
+import '/screens/account/account_screen.dart';
+import '/screens/budget/budget_screen.dart';
+import '/screens/transaction/transaction_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

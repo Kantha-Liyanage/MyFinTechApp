@@ -1,15 +1,16 @@
-import 'chat_message.dart';
+import 'account.dart';
+import 'tag.dart';
 
 class Transaction {
-  final int id;
   final String account;
-  final List<String> tags;
+  final String tag;
   final double amount;
   final String date;
+  final String time;
 
-  Transaction(this.id, this.account, this.tags, this.amount, this.date);
+  Transaction(this.account, this.tag, this.amount, this.date, this.time);
 
-  static Transaction createTransaction(ChatMessage message) {
-    return Transaction(0,'', [], 0.0, '');
+  static List<Transaction> createTransactions(String text, List<Account> accounts, List<Tag> tags){
+    return [];
   }
 }
