@@ -116,7 +116,7 @@ class AccountListItem extends StatelessWidget {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(account.name,
-                style: Theme.of(context).textTheme.bodyText1),
+                style: Theme.of(context).textTheme.caption),
             Container(
               padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
               child: Text('Current Balance',
@@ -136,7 +136,7 @@ class AccountListItem extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
                 child: Text(account.currentBalance.toString(),
-                    style: Theme.of(context).textTheme.bodyText1),
+                    style: Theme.of(context).textTheme.caption),
               ),
             ],
           ),

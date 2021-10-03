@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '/screens/account/account_screen.dart';
-import '/screens/budget/budget_screen.dart';
-import '/screens/transaction/transaction_screen.dart';
+import 'package:my_fintech_app/screens/account/account_screen.dart';
+import 'package:my_fintech_app/screens/budget/budget_screen.dart';
+import 'package:my_fintech_app/screens/transaction/transaction_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -23,7 +23,9 @@ class HomeScreen extends StatelessWidget {
               return {'New Account', 'New Budget Item', 'Settings', 'Logout'}.map((String choice) {
                 return PopupMenuItem<String>(
                   value: choice,
-                  child: Text(choice),
+                  child: Text(choice, 
+                    style: Theme.of(context).textTheme.caption,
+                  ),
                 );
               }).toList();
             },
@@ -33,15 +35,15 @@ class HomeScreen extends StatelessWidget {
             tabs: <Widget>[
               Tab(
                 icon: Icon(Icons.forum_sharp),
-                text: 'FinChat',
+                text: 'CHAT',
               ),
               Tab(
                 icon: Icon(Icons.account_balance_sharp),
-                text: 'Accounts',
+                text: 'ACCOUNTS',
               ),
               Tab(
                 icon: Icon(Icons.tune_sharp),
-                text: 'Budget',
+                text: 'BUDGET',
               ),
             ],
           ),

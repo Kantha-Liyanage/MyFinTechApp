@@ -1,13 +1,16 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:my_fintech_app/screens/transaction/full_screen_camera.dart';
+import 'package:provider/provider.dart';
+import 'package:my_fintech_app/models/accounts_list.dart';
+import 'package:my_fintech_app/models/chat_message.dart';
+import 'package:my_fintech_app/models/chat_messages_list.dart';
 import 'package:my_fintech_app/models/account.dart';
 import 'package:my_fintech_app/models/suggestion.dart';
 import 'package:my_fintech_app/models/suggestions_list.dart';
 import 'package:my_fintech_app/models/tag.dart';
 import 'package:my_fintech_app/models/tags_list.dart';
-import 'package:provider/provider.dart';
-import '/models/accounts_list.dart';
-import '/models/chat_message.dart';
-import '/models/chat_messages_list.dart';
+import 'package:my_fintech_app/models/transaction.dart';
 
 class ChatBox extends StatefulWidget {
   final VoidCallback scrollChatToBottom;
@@ -66,7 +69,13 @@ class _ChatBoxState extends State<ChatBox> {
                     ),
                     suffixIcon: IconButton(
                       icon: const Icon(Icons.photo_camera_sharp),
-                      onPressed: () {},
+                      onPressed: () async {
+                        final cameras = await availableCameras();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => FullScreenCamera(cameras.first)),
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -76,7 +85,7 @@ class _ChatBoxState extends State<ChatBox> {
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 12),
                   child: ElevatedButton(
                     onPressed: () {
-                      sendChat(chatMessages);
+                      sendChat(chatMessages, accounts, tags);
                     },
                     child: const Icon(Icons.send_sharp),
                     style: ElevatedButton.styleFrom(
@@ -129,27 +138,73 @@ class _ChatBoxState extends State<ChatBox> {
         ));
   }
 
-  sendChat(ChatMessagesList chatMessages) {
+  sendChat(
+      ChatMessagesList chatMessages, AccountsList accounts, TagsList tags) {
     if (_controller.text.trim() == '') {
       return;
     }
 
-    //validate transaction
-
     ChatMessage msg = ChatMessage();
-    msg.message = _controller.text;
-    msg.message = msg.message.replaceFirst('@', '🏦 ');
-    msg.message = msg.message.replaceFirst('#', '\n🗂 ');
-    msg.message = msg.message.replaceFirst('+', '\n💰 ');
-    msg.message = msg.message.replaceFirst('&', '\n📆 ');
+
+    if (Transaction.isAnAttemptedTransaction(_controller.text)) {
+      //validate transaction
+      try {
+        Transaction transaction = Transaction.createTransaction(
+            _controller.text.trim(), accounts.items, tags.items);
+        msg = _buildUserChatMessage(_controller.text, transaction);
+      } catch (e) {
+        _showMyDialog(e.toString());
+        return;
+      }
+    } else {
+      msg = _buildUserChatMessage(_controller.text);
+    }
+
+    chatMessages.add(msg);
+    suggestions.clearAll();
+    suggestionBarVisible = false;
+    _controller.clear();
+    widget.scrollChatToBottom();
+  }
+
+  ChatMessage _buildUserChatMessage(String text, [Transaction? transaction]) {
+    ChatMessage msg = ChatMessage();
+    if (transaction != null) {
+      msg.message = '💵 ' + transaction.account;
+      msg.message += '\n🏷 ' + transaction.tag;
+      msg.message += '\n💰 ' + transaction.amount.toString();
+      msg.message += '\n🗓 ' + transaction.date;
+    } else {
+      msg.message = text;
+    }
     msg.messageType = ChatMessageType.userMessage;
     msg.createdDate = 'Today';
     msg.createdTime = 'Now';
     msg.savedOnline = false;
     msg.deleted = false;
-    chatMessages.add(msg);
-    _controller.clear();
-    widget.scrollChatToBottom();
+    return msg;
+  }
+
+  ChatMessage _buildDeviceChatMessage(String text) {
+    ChatMessage msg = ChatMessage();
+    msg.message = text;
+    msg.messageType = ChatMessageType.deviceMessage;
+    msg.createdDate = 'Today';
+    msg.createdTime = 'Now';
+    msg.savedOnline = false;
+    msg.deleted = false;
+    return msg;
+  }
+
+  ChatMessage _buildServerChatMessage(String text) {
+    ChatMessage msg = ChatMessage();
+    msg.message = text;
+    msg.messageType = ChatMessageType.serverMessage;
+    msg.createdDate = 'Today';
+    msg.createdTime = 'Now';
+    msg.savedOnline = false;
+    msg.deleted = false;
+    return msg;
   }
 
   insertSuggestion(String text) {
@@ -159,7 +214,7 @@ class _ChatBoxState extends State<ChatBox> {
   }
 
   bool getSuggestions(AccountsList accounts, TagsList tags, String value) {
-    if (value.length < 1) {
+    if (value.isEmpty) {
       return false;
     }
 
@@ -204,5 +259,35 @@ class _ChatBoxState extends State<ChatBox> {
     }
 
     return false;
+  }
+
+  Future<void> _showMyDialog(String message) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('FinChat'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(
+                  message + '\nPlease correct.',
+                  style: Theme.of(context).textTheme.caption,
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

@@ -5,6 +5,10 @@ INJECTED from /home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/An
 INJECTED from /home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:1:1-41:12
 INJECTED from /home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:1:1-41:12
 MERGED from /home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:1:1-41:12
+MERGED from [:camera] /home/kantha/Documents/GitHub/MyFinTechApp/build/camera/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-10:12
+MERGED from [:flutter_plugin_android_lifecycle] /home/kantha/Documents/GitHub/MyFinTechApp/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:path_provider] /home/kantha/Documents/GitHub/MyFinTechApp/build/path_provider/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:connectivity_plus] /home/kantha/Documents/GitHub/MyFinTechApp/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.fragment:fragment:1.1.0] /home/kantha/.gradle/caches/transforms-2/files-2.1/2fd9120a6da4df3dbabdd40f6a2d8995/fragment-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.activity:activity:1.0.0] /home/kantha/.gradle/caches/transforms-2/files-2.1/68dbf8ea01a1dbd974fc87b5753550f0/jetified-activity-1.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.viewpager:viewpager:1.0.0] /home/kantha/.gradle/caches/transforms-2/files-2.1/eb26273f8f7192460456ce62b9bdf9ef/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
@@ -93,6 +97,14 @@ uses-sdk
 INJECTED from /home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml
 INJECTED from /home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml
+MERGED from [:camera] /home/kantha/Documents/GitHub/MyFinTechApp/build/camera/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:camera] /home/kantha/Documents/GitHub/MyFinTechApp/build/camera/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_plugin_android_lifecycle] /home/kantha/Documents/GitHub/MyFinTechApp/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_plugin_android_lifecycle] /home/kantha/Documents/GitHub/MyFinTechApp/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:path_provider] /home/kantha/Documents/GitHub/MyFinTechApp/build/path_provider/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:path_provider] /home/kantha/Documents/GitHub/MyFinTechApp/build/path_provider/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:connectivity_plus] /home/kantha/Documents/GitHub/MyFinTechApp/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:connectivity_plus] /home/kantha/Documents/GitHub/MyFinTechApp/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [androidx.fragment:fragment:1.1.0] /home/kantha/.gradle/caches/transforms-2/files-2.1/2fd9120a6da4df3dbabdd40f6a2d8995/fragment-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.fragment:fragment:1.1.0] /home/kantha/.gradle/caches/transforms-2/files-2.1/2fd9120a6da4df3dbabdd40f6a2d8995/fragment-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.activity:activity:1.0.0] /home/kantha/.gradle/caches/transforms-2/files-2.1/68dbf8ea01a1dbd974fc87b5753550f0/jetified-activity-1.0.0/AndroidManifest.xml:20:5-22:41
@@ -131,3 +143,15 @@ uses-permission#android.permission.INTERNET
 ADDED from /home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/debug/AndroidManifest.xml:6:5-66
 	android:name
 		ADDED from /home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/debug/AndroidManifest.xml:6:22-64
+uses-permission#android.permission.CAMERA
+ADDED from [:camera] /home/kantha/Documents/GitHub/MyFinTechApp/build/camera/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-65
+	android:name
+		ADDED from [:camera] /home/kantha/Documents/GitHub/MyFinTechApp/build/camera/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-62
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from [:camera] /home/kantha/Documents/GitHub/MyFinTechApp/build/camera/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-71
+	android:name
+		ADDED from [:camera] /home/kantha/Documents/GitHub/MyFinTechApp/build/camera/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-68
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [:connectivity_plus] /home/kantha/Documents/GitHub/MyFinTechApp/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-79
+	android:name
+		ADDED from [:connectivity_plus] /home/kantha/Documents/GitHub/MyFinTechApp/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-76

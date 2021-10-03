@@ -1,4 +1,4 @@
-import 'suggestion.dart';
+import 'package:my_fintech_app/models/suggestion.dart';
 
 class SuggestionsList {
   List<Suggestion> _items = <Suggestion>[

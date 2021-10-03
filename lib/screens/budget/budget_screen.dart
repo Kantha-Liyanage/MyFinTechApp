@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_fintech_app/models/tags_list.dart';
+import 'package:my_fintech_app/screens/budget/budget_list_item.dart';
+import 'package:my_fintech_app/widgets/tab_title.dart';
 import 'package:provider/provider.dart';
-import '/models/tags_list.dart';
-import '/widgets/tab_title.dart';
-import 'budget_list_item.dart';
 
 class BudgetScreen extends StatelessWidget {
   const BudgetScreen({Key? key}) : super(key: key);

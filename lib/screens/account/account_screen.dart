@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_fintech_app/models/accounts_list.dart';
+import 'package:my_fintech_app/screens/account/account_list_item.dart';
+import 'package:my_fintech_app/widgets/tab_title.dart';
 import 'package:provider/provider.dart';
-import '/models/accounts_list.dart';
-import '/widgets/tab_title.dart';
-import 'account_list_item.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({ Key? key }) : super(key: key);

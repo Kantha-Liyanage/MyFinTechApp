@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'account.dart';
+import 'package:my_fintech_app/models/account.dart';
 
 class AccountsList extends ChangeNotifier {
 

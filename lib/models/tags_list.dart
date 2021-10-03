@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'tag.dart';
+import 'package:my_fintech_app/models/tag.dart';
 
 class TagsList extends ChangeNotifier {
 

@@ -1,6 +1,6 @@
-import '/models/chat_message.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:my_fintech_app/models/chat_message.dart';
 
 class ChatBubble extends StatelessWidget {
 

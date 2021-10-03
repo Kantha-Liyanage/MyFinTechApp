@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_fintech_app/models/tag.dart';
 import 'package:provider/provider.dart';
-import '/models/tag.dart';
 
 class BudgetListItem extends StatelessWidget {
   const BudgetListItem({Key? key}) : super(key: key);
@@ -31,7 +31,7 @@ class BudgetListItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start, 
             children: [
               Text(tag.name, 
-                style: Theme.of(context).textTheme.bodyText1),
+                style: Theme.of(context).textTheme.caption),
               Container(
                 padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
                 child: Text('Utilized Amount',
@@ -51,7 +51,7 @@ class BudgetListItem extends StatelessWidget {
           flex: 1,
           child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
             Text(tag.budgetAmount.toString(),
-                style: Theme.of(context).textTheme.bodyText1),
+                style: Theme.of(context).textTheme.caption),
             Container(
               padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
               child: Text(tag.utilizedAmount.toString(),
