@@ -71,9 +71,10 @@ class _ChatBoxState extends State<ChatBox> {
                       icon: const Icon(Icons.photo_camera_sharp),
                       onPressed: () async {
                         final cameras = await availableCameras();
+                        await Future.delayed(const Duration(milliseconds : 200));
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => FullScreenCamera(cameras.first)),
+                          MaterialPageRoute(builder: (context) => FullScreenCamera(cameras.first, widget.scrollChatToBottom)),
                         );
                       },
                     ),

@@ -79,7 +79,7 @@ class ChatBubble extends StatelessWidget {
               Visibility(
                 visible: !isDeviceMessageMode,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 4, 16),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
                   child: Text(chatMessage.message,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),

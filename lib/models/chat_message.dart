@@ -8,6 +8,7 @@ class ChatMessage extends ChangeNotifier {
   String createdTime = '';
   bool _savedOnline = false;
   bool _deleted = false;
+  String imagePath = '';
 
   bool get savedOnline => _savedOnline;
   set savedOnline(bool savedOnline) {
@@ -20,6 +21,8 @@ class ChatMessage extends ChangeNotifier {
     _deleted = deleted;
     notifyListeners();
   }
+
+  bool get photoMessage => (imagePath.isNotEmpty);
 }
 
 enum ChatMessageType { userMessage, serverMessage, deviceMessage }

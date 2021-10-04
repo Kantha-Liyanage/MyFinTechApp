@@ -11,7 +11,7 @@ class BudgetListItem extends StatelessWidget {
 
     return GestureDetector(
       child:
-          (tag.editable ? buildEditableWidget(tag) : buildViewOnlyWidget(context, tag)),
+          (tag.editable ? buildEditableWidget(context, tag) : buildViewOnlyWidget(context, tag)),
       onLongPress: () {
         toggleEditMode(tag);
       },
@@ -23,54 +23,67 @@ class BudgetListItem extends StatelessWidget {
   }
 
   buildViewOnlyWidget(BuildContext context, Tag tag) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 3,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start, 
-            children: [
-              Text(tag.name, 
-                style: Theme.of(context).textTheme.caption),
-              Container(
-                padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                child: Text('Utilized Amount',
-                  style: Theme.of(context).textTheme.subtitle1,
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+              blurRadius: .5,
+              spreadRadius: 1.5,
+              color: Colors.black.withOpacity(.20))
+        ],
+        color: Colors.grey.shade200,
+        borderRadius: BorderRadius.circular(15)
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start, 
+              children: [
+                Text(tag.name, 
+                  style: Theme.of(context).textTheme.caption),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                  child: Text('Utilized Amount',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                child: Text('Current Balance',
-                  style: Theme.of(context).textTheme.subtitle1,
+                Container(
+                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                  child: Text('Current Balance',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
                 ),
-              ),
-            ]
+              ]
+            ),
           ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-            Text(tag.budgetAmount.toString(),
-                style: Theme.of(context).textTheme.caption),
-            Container(
-              padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-              child: Text(tag.utilizedAmount.toString(),
-                style: Theme.of(context).textTheme.subtitle1,
+          Expanded(
+            flex: 1,
+            child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+              Text(tag.budgetAmount.toString(),
+                  style: Theme.of(context).textTheme.caption),
+              Container(
+                padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                child: Text(tag.utilizedAmount.toString(),
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
               ),
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-              child: Text(tag.balance.toString(),
-                style: Theme.of(context).textTheme.subtitle1,
+              Container(
+                padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                child: Text(tag.balance.toString(),
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
               ),
-            ),
-          ]),
-        ),
-      ],
+            ]),
+          ),
+        ],
+      )
     );
   }
 
-  buildEditableWidget(Tag tag) {
+  buildEditableWidget(BuildContext context, Tag tag) {
     String tmpName = tag.name;
     double budgetAmount = tag.budgetAmount;
 
@@ -83,8 +96,9 @@ class BudgetListItem extends StatelessWidget {
               flex: 3,
               child: TextField(
                 controller: TextEditingController()..text = tag.name,
+                style: Theme.of(context).textTheme.bodyText1,
                 decoration: const InputDecoration(
-                    border: UnderlineInputBorder(), labelText: 'Account Name'),
+                  border: UnderlineInputBorder(), labelText: 'Account Name'),
                 onChanged: (String newValue) {
                   if (newValue.trim() != '') {
                     tag.name = newValue;
@@ -95,6 +109,7 @@ class BudgetListItem extends StatelessWidget {
             Expanded(
                 flex: 1,
                 child: TextField(
+                  style: Theme.of(context).textTheme.bodyText1,
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                     labelText: 'Monthly (Rs)',

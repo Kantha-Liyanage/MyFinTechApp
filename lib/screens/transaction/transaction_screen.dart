@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:my_fintech_app/screens/transaction/photo_bubble.dart';
 import 'package:my_fintech_app/services/connectivity_service.dart';
 import 'package:provider/provider.dart';
 import 'package:my_fintech_app/models/chat_messages_list.dart';
@@ -34,10 +35,17 @@ class TransactionScreen extends StatelessWidget {
               itemCount: chats.items.length,
               controller: _scrollController,
               itemBuilder: (BuildContext context, int index) {
-                return ChangeNotifierProvider.value(
-                  value: chats.items[index],
-                  child: const ChatBubble(),
-                );
+                if(chats.items[index].photoMessage){
+                  return ChangeNotifierProvider.value(
+                    value: chats.items[index],
+                    child: const PhotoBubble(),
+                  );
+                } else{
+                  return ChangeNotifierProvider.value(
+                    value: chats.items[index],
+                    child: const ChatBubble(),
+                  );
+                }
               },
             ),
           ),
@@ -55,7 +63,7 @@ class TransactionScreen extends StatelessWidget {
   }
 
   scrollChatToBottom() {
-    _scrollController.animateTo(_scrollController.position.maxScrollExtent + 70,
+    _scrollController.animateTo(_scrollController.position.maxScrollExtent + 250,
         duration: const Duration(milliseconds: 1000), curve: Curves.easeOut);
   }
 

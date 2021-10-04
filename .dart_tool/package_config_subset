@@ -2,6 +2,10 @@ my_fintech_app
 2.12
 file:///home/kantha/Documents/GitHub/MyFinTechApp/
 file:///home/kantha/Documents/GitHub/MyFinTechApp/lib/
+archive
+2.12
+file:///home/kantha/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/archive-3.1.5/
+file:///home/kantha/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/archive-3.1.5/lib/
 args
 2.12
 file:///home/kantha/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/args-2.3.0/
@@ -70,6 +74,10 @@ cross_file
 2.12
 file:///home/kantha/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/cross_file-0.3.1+5/
 file:///home/kantha/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/cross_file-0.3.1+5/lib/
+crypto
+2.12
+file:///home/kantha/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.1/
+file:///home/kantha/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.1/lib/
 cupertino_icons
 2.12
 file:///home/kantha/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.3/
@@ -98,6 +106,10 @@ flutter_plugin_android_lifecycle
 2.12
 file:///home/kantha/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.3/
 file:///home/kantha/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.3/lib/
+image
+2.12
+file:///home/kantha/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/image-3.0.8/
+file:///home/kantha/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/image-3.0.8/lib/
 js
 2.12
 file:///home/kantha/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.3/

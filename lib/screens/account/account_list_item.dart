@@ -109,39 +109,52 @@ class AccountListItem extends StatelessWidget {
   }
 
   buildViewOnlyWidget(BuildContext context, Account account) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 3,
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(account.name,
-                style: Theme.of(context).textTheme.caption),
-            Container(
-              padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-              child: Text('Current Balance',
-                style: Theme.of(context).textTheme.subtitle1,
-              ),
-            ),
-          ]),
-        ),
-        Expanded(
-          flex: 1,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(AccountTypeWithDescription.get(account.accountType).name,
-                style: Theme.of(context).textTheme.subtitle1,
-              ),
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+              blurRadius: .5,
+              spreadRadius: 1.5,
+              color: Colors.black.withOpacity(.20))
+        ],
+        color: Colors.grey.shade200,
+        borderRadius: BorderRadius.circular(15)
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(account.name,
+                  style: Theme.of(context).textTheme.caption),
               Container(
                 padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                child: Text(account.currentBalance.toString(),
-                    style: Theme.of(context).textTheme.caption),
+                child: Text('Current Balance',
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
               ),
-            ],
+            ]),
           ),
-        ),
-      ],
+          Expanded(
+            flex: 1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(AccountTypeWithDescription.get(account.accountType).name,
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                  child: Text(account.currentBalance.toString(),
+                      style: Theme.of(context).textTheme.caption),
+                ),
+              ],
+            ),
+          ),
+        ],
+      )
     );
   }
 }
