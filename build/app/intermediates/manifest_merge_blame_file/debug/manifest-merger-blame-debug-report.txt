@@ -12,8 +12,8 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/debug/AndroidManifest.xml:6:5-66
-14-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/debug/AndroidManifest.xml:6:22-64
+14-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:3:6-68
+14-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:3:23-65
 15    <uses-permission android:name="android.permission.CAMERA" />
 15-->[:camera] /home/kantha/Documents/GitHub/MyFinTechApp/build/camera/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-65
 15-->[:camera] /home/kantha/Documents/GitHub/MyFinTechApp/build/camera/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-62
@@ -25,28 +25,28 @@
 17-->[:connectivity_plus] /home/kantha/Documents/GitHub/MyFinTechApp/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-76
 18
 19    <application
-19-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:3:4-40:19
+19-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:4:4-41:19
 20        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 20-->[androidx.core:core:1.1.0] /home/kantha/.gradle/caches/transforms-2/files-2.1/2e94107f30f39be366a17347c2bf100b/core-1.1.0/AndroidManifest.xml:24:18-86
 21        android:debuggable="true"
 22        android:icon="@mipmap/ic_launcher"
-22-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:5:9-43
+22-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:6:9-43
 23        android:label="em_fintech_app" >
-23-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:4:9-39
+23-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:5:9-39
 24        <activity
-24-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:6:9-34:20
+24-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:7:9-35:20
 25            android:name="com.example.em_fintech_app.MainActivity"
-25-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:7:13-41
+25-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:8:13-41
 26            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-26-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:10:13-163
+26-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:11:13-163
 27            android:hardwareAccelerated="true"
-27-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:11:13-47
+27-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:12:13-47
 28            android:launchMode="singleTop"
-28-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:8:13-43
+28-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:9:13-43
 29            android:theme="@style/LaunchTheme"
-29-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:9:13-47
+29-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:10:13-47
 30            android:windowSoftInputMode="adjustResize" >
-30-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:12:13-55
+30-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:13:13-55
 31
 32            <!--
 33                 Specifies an Android theme to apply to this Activity as soon as
@@ -55,11 +55,11 @@
 36                 to determine the Window background behind the Flutter UI.
 37            -->
 38            <meta-data
-38-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:17:13-20:17
+38-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:18:13-21:17
 39                android:name="io.flutter.embedding.android.NormalTheme"
-39-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:18:15-70
+39-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:19:15-70
 40                android:resource="@style/NormalTheme" />
-40-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:19:15-52
+40-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:20:15-52
 41            <!--
 42                 Displays an Android View that continues showing the launch screen
 43                 Drawable until Flutter paints its first frame, then this splash
@@ -68,21 +68,21 @@
 46                 Flutter's first frame.
 47            -->
 48            <meta-data
-48-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:26:13-29:17
+48-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:27:13-30:17
 49                android:name="io.flutter.embedding.android.SplashScreenDrawable"
-49-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:27:15-79
+49-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:28:15-79
 50                android:resource="@drawable/launch_background" />
-50-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:28:15-61
+50-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:29:15-61
 51
 52            <intent-filter>
-52-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:30:13-33:29
+52-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:31:13-34:29
 53                <action android:name="android.intent.action.MAIN" />
-53-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:31:17-68
-53-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:31:25-66
+53-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:32:17-68
+53-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:32:25-66
 54
 55                <category android:name="android.intent.category.LAUNCHER" />
-55-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:32:17-76
-55-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:32:27-74
+55-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:33:17-76
+55-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:33:27-74
 56            </intent-filter>
 57        </activity>
 58        <!--
@@ -90,11 +90,11 @@
 60             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
 61        -->
 62        <meta-data
-62-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:37:9-39:33
+62-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:38:9-40:33
 63            android:name="flutterEmbedding"
-63-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:38:13-44
+63-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:39:13-44
 64            android:value="2" />
-64-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:39:13-30
+64-->/home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/AndroidManifest.xml:40:13-30
 65    </application>
 66
 67</manifest>

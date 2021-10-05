@@ -1,15 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:my_fintech_app/models/budget_category.dart';
+import 'package:my_fintech_app/services/budget_category_service.dart';
 
 class BudgetCategoriesList extends ChangeNotifier {
+  List<BudgetCategory> _items = <BudgetCategory>[];
 
-  final List<BudgetCategory> _items = <BudgetCategory>[
-    BudgetCategory('Grocery', BudgetCategoryType.expense,  0, 0),
-    BudgetCategory('UtilityBills/Phone', BudgetCategoryType.expense, 0, 0),
-    BudgetCategory('Entertainment', BudgetCategoryType.expense, 0, 0),
-    BudgetCategory('Salary', BudgetCategoryType.income, 0, 0),
-  ];
-  
+  BudgetCategoriesList() {
+    _getRemoteData();
+  }
+
   List<BudgetCategory> get items => _items;
 
   void add(BudgetCategory item) {
@@ -22,4 +21,9 @@ class BudgetCategoriesList extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> _getRemoteData() async {
+    try {
+      _items = await BudgetCategoryService().fetchBudgetCategories();
+    } catch (e) {}
+  }
 }

@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
           PopupMenuButton<String>(
             onSelected: handleAppBarMenuItemClick,
             itemBuilder: (BuildContext context) {
-              return {'New Account', 'New Budget Item', 'Settings', 'Logout'}.map((String choice) {
+              return {'New Account', 'New Budget Category', 'Settings', 'Logout'}.map((String choice) {
                 return PopupMenuItem<String>(
                   value: choice,
                   child: Text(choice, 

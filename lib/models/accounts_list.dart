@@ -1,12 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:my_fintech_app/models/account.dart';
+import 'package:my_fintech_app/services/account_service.dart';
 
 class AccountsList extends ChangeNotifier {
-
-  final List<Account> _items = <Account>[
-    Account('Cash', AccountType.asset, 0.00),
-  ];
   
+  List<Account> _items = <Account>[];
+
+  AccountsList() {
+    _getRemoteData();
+  }
+
   List<Account> get items => _items;
 
   void add(Account item) {
@@ -19,4 +22,9 @@ class AccountsList extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> _getRemoteData() async {
+    try {
+      _items = await AccountService().fetchAccounts();
+    } catch (e) {}
+  }
 }
