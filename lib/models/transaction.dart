@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:my_fintech_app/models/account.dart';
-import 'package:my_fintech_app/models/tag.dart';
+import 'package:my_fintech_app/models/budget_category.dart';
 
 class Transaction {
   String account = '';
@@ -10,11 +10,11 @@ class Transaction {
 
   static bool isAnAttemptedTransaction(String text) {
     RegExp exp = RegExp(r"[@|#|+|&]");
-    return exp.allMatches(text).length > 0;
+    return (exp.allMatches(text).isNotEmpty);
   }
 
   static Transaction createTransaction(
-      String text, List<Account> accounts, List<Tag> tags) {
+      String text, List<Account> accounts, List<BudgetCategory> tags) {
     Transaction t = Transaction();
 
     //Account
@@ -45,7 +45,7 @@ class Transaction {
     //Category
     t.tag = text.substring(text.indexOf('#') + 1, text.indexOf('+'));
 
-    Iterable<Tag> resultTag =
+    Iterable<BudgetCategory> resultTag =
         tags.where((tag) => tag.name.toLowerCase() == t.tag.toLowerCase());
 
     if (resultTag.length != 1) {

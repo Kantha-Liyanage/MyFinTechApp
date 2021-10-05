@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_fintech_app/models/tag.dart';
+import 'package:my_fintech_app/models/budget_category.dart';
 import 'package:provider/provider.dart';
 
 class BudgetListItem extends StatelessWidget {
@@ -7,7 +7,7 @@ class BudgetListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Tag tag = Provider.of<Tag>(context, listen: true);
+    BudgetCategory tag = Provider.of<BudgetCategory>(context, listen: true);
 
     return GestureDetector(
       child:
@@ -18,11 +18,11 @@ class BudgetListItem extends StatelessWidget {
     );
   }
 
-  toggleEditMode(Tag tag) {
+  toggleEditMode(BudgetCategory tag) {
     tag.editable = !tag.editable;
   }
 
-  buildViewOnlyWidget(BuildContext context, Tag tag) {
+  buildViewOnlyWidget(BuildContext context, BudgetCategory tag) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -83,7 +83,7 @@ class BudgetListItem extends StatelessWidget {
     );
   }
 
-  buildEditableWidget(BuildContext context, Tag tag) {
+  buildEditableWidget(BuildContext context, BudgetCategory tag) {
     String tmpName = tag.name;
     double budgetAmount = tag.budgetAmount;
 

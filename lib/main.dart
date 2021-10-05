@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_fintech_app/models/accounts_list.dart';
 import 'package:my_fintech_app/models/chat_messages_list.dart';
-import 'package:my_fintech_app/models/tags_list.dart';
+import 'package:my_fintech_app/models/budget_categories_list.dart';
 import 'package:my_fintech_app/screens/home/home_screen.dart';
 import 'package:my_fintech_app/services/connectivity_service.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +15,7 @@ Future<void> main() async {
       MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => AccountsList()),
-          ChangeNotifierProvider(create: (context) => TagsList()),
+          ChangeNotifierProvider(create: (context) => BudgetCategoriesList()),
           ChangeNotifierProvider(create: (context) => ChatMessagesList()),
           ChangeNotifierProvider(create: (context) => ConnectivityService()),
         ],

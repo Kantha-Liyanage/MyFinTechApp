@@ -8,8 +8,8 @@ import 'package:my_fintech_app/models/chat_messages_list.dart';
 import 'package:my_fintech_app/models/account.dart';
 import 'package:my_fintech_app/models/suggestion.dart';
 import 'package:my_fintech_app/models/suggestions_list.dart';
-import 'package:my_fintech_app/models/tag.dart';
-import 'package:my_fintech_app/models/tags_list.dart';
+import 'package:my_fintech_app/models/budget_category.dart';
+import 'package:my_fintech_app/models/budget_categories_list.dart';
 import 'package:my_fintech_app/models/transaction.dart';
 
 class ChatBox extends StatefulWidget {
@@ -32,7 +32,7 @@ class _ChatBoxState extends State<ChatBox> {
     ChatMessagesList chatMessages =
         Provider.of<ChatMessagesList>(context, listen: true);
     AccountsList accounts = Provider.of<AccountsList>(context, listen: true);
-    TagsList tags = Provider.of<TagsList>(context, listen: true);
+    BudgetCategoriesList tags = Provider.of<BudgetCategoriesList>(context, listen: true);
 
     return Column(mainAxisAlignment: MainAxisAlignment.end, children: [
       Visibility(visible: suggestionBarVisible, child: suggestionBar()),
@@ -140,7 +140,7 @@ class _ChatBoxState extends State<ChatBox> {
   }
 
   sendChat(
-      ChatMessagesList chatMessages, AccountsList accounts, TagsList tags) {
+      ChatMessagesList chatMessages, AccountsList accounts, BudgetCategoriesList tags) {
     if (_controller.text.trim() == '') {
       return;
     }
@@ -214,7 +214,7 @@ class _ChatBoxState extends State<ChatBox> {
         TextPosition(offset: _controller.text.length));
   }
 
-  bool getSuggestions(AccountsList accounts, TagsList tags, String value) {
+  bool getSuggestions(AccountsList accounts, BudgetCategoriesList tags, String value) {
     if (value.isEmpty) {
       return false;
     }
@@ -223,7 +223,7 @@ class _ChatBoxState extends State<ChatBox> {
     if (value.contains('@') && value.contains('#')) {
       String tagSearch = value.substring(value.indexOf('#') + 1);
       suggestions.clearAll();
-      Iterable<Tag> result = tags.items.where(
+      Iterable<BudgetCategory> result = tags.items.where(
           (acc) => acc.name.toLowerCase().startsWith(tagSearch.toLowerCase()));
       int i = 0;
       for (; i < result.length; i++) {

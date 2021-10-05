@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_fintech_app/models/tags_list.dart';
+import 'package:my_fintech_app/models/budget_categories_list.dart';
 import 'package:my_fintech_app/screens/budget/budget_list_item.dart';
 import 'package:my_fintech_app/widgets/tab_title.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +9,7 @@ class BudgetScreen extends StatelessWidget {
  
   @override
   Widget build(BuildContext context) {
-    TagsList tags = Provider.of<TagsList>(context, listen: true);
+    BudgetCategoriesList tags = Provider.of<BudgetCategoriesList>(context, listen: true);
 
     return Column(
       children: [
