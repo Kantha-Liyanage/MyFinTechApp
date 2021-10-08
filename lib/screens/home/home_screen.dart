@@ -1,15 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:my_fintech_app/models/account.dart';
+import 'package:my_fintech_app/models/accounts_list.dart';
+import 'package:my_fintech_app/models/budget_categories_list.dart';
+import 'package:my_fintech_app/models/budget_category.dart';
+import 'package:my_fintech_app/models/user.dart';
 import 'package:my_fintech_app/screens/account/account_screen.dart';
 import 'package:my_fintech_app/screens/budget/budget_screen.dart';
+import 'package:my_fintech_app/screens/home/intro_logon_screen.dart';
 import 'package:my_fintech_app/screens/transaction/transaction_screen.dart';
+import 'package:my_fintech_app/widgets/popup_confirmation.dart';
+import 'package:provider/provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   static const String _title = 'FinChat';
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController tabController;
+  late AccountsList accounts;
+  late BudgetCategoriesList tags;
+  List<String> moreMenuItems = ['New Account', 'New Budget Category', 'Logout'];
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    accounts = Provider.of<AccountsList>(context, listen: true);
+    tags = Provider.of<BudgetCategoriesList>(context, listen: true);
+
     return DefaultTabController(
       initialIndex: 0,
       length: 3,
@@ -17,22 +46,24 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text(HomeScreen._title),
           actions: <Widget>[
-          PopupMenuButton<String>(
-            onSelected: handleAppBarMenuItemClick,
-            itemBuilder: (BuildContext context) {
-              return {'New Account', 'New Budget Category', 'Settings', 'Logout'}.map((String choice) {
-                return PopupMenuItem<String>(
-                  value: choice,
-                  child: Text(choice, 
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                );
-              }).toList();
-            },
-          ),
-        ], 
-          bottom: const TabBar(
-            tabs: <Widget>[
+            PopupMenuButton<String>(
+              onSelected: _handleAppBarMenuItemClick,
+              itemBuilder: (BuildContext context) {
+                return moreMenuItems.map((String choice) {
+                  return PopupMenuItem<String>(
+                    value: choice,
+                    child: Text(
+                      choice,
+                      style: Theme.of(context).textTheme.caption,
+                    ),
+                  );
+                }).toList();
+              },
+            ),
+          ],
+          bottom: TabBar(
+            controller: tabController,
+            tabs: const <Widget>[
               Tab(
                 icon: Icon(Icons.forum_sharp),
                 text: 'CHAT',
@@ -49,6 +80,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         body: TabBarView(
+          controller: tabController,
           children: <Widget>[
             Center(
               child: TransactionScreen(),
@@ -65,16 +97,66 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  void handleAppBarMenuItemClick(String value) {
-    switch (value) {
-      case 'New Account':
-        break;
-      case 'New Budget Item':
-        break;
-      case 'Settings':
-        break;
-      case 'Logout':
-        break;
+  int accountCount = 1;
+  int categoryCount = 1;
+
+  void _handleAppBarMenuItemClick(String value) {
+    //New Account
+    if (value == moreMenuItems[0]) {
+      _moveToTab(1);
+      _addNewAccount();
     }
+    //New budget category
+    else if (value == moreMenuItems[1]) {
+      _moveToTab(2);
+      _addNewCategory();
+    }
+    //Logout
+    else if (value == moreMenuItems[2]) {
+      PopupConfirmation('Are you sure you want to logout?', _logout)
+          .showConfirmationDialog(context);
+    }
+  }
+
+  void _addNewAccount() {
+    Account acc =
+        Account(0, 'New Account ' + accountCount.toString(), AccountType.asset, 0);
+    setState(() {
+      accountCount++;
+    });
+    accounts.insert(0, acc);
+    _showToast("New account added.");
+  }
+
+  _addNewCategory() {
+    BudgetCategory tag =
+        BudgetCategory(0, 'New Category ' + categoryCount.toString() , BudgetCategoryType.expense, 0, 0);
+    setState(() {
+      categoryCount++;
+    });
+    tags.insert(0, tag);
+    _showToast("New Category added.");
+  }
+
+  void _logout() {
+    User.logout();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const IntroLogonScreen()),
+    );
+  }
+
+  void _moveToTab(int index) {
+    tabController.animateTo(index);
+  }
+
+  void _showToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        backgroundColor: Colors.grey,
+        textColor: Colors.black,
+        fontSize: 14.0);
   }
 }

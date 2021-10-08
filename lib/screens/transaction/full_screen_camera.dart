@@ -77,13 +77,9 @@ class _FullScreenCameraState extends State<FullScreenCamera> {
 
             final image = await _controller.takePicture();
 
-            await fixRotation(image.path);
+            await _fixRotation(image.path);
 
-            ChatMessage msg = ChatMessage();
-            msg.messageType = ChatMessageType.userMessage;
-            msg.createdDate = 'Today';
-            msg.createdTime = 'Now';
-            msg.imagePath = image.path;
+            ChatMessage msg = ChatMessage.photo(image.path, ChatMessageType.userMessage, 'Today', 'Now');
             chatMessages.add(msg);
 
             Navigator.pop(context);
@@ -96,7 +92,7 @@ class _FullScreenCameraState extends State<FullScreenCamera> {
     );
   }
 
-  Future<File> fixRotation(String imagePath) async {
+  Future<File> _fixRotation(String imagePath) async {
     final originalFile = File(imagePath);
     List<int> imageBytes = await originalFile.readAsBytes();
     final originalImage = img.decodeImage(imageBytes);

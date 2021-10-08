@@ -13,9 +13,7 @@ class ChatMessagesList extends ChangeNotifier {
 
   void addOfflineMessage() {
     removeOfflineMessage();
-    ChatMessage msg = ChatMessage();
-    msg.message = 'You are offline.';
-    msg.messageType = ChatMessageType.deviceMessage;
+    ChatMessage msg = ChatMessage.device('You are offline.', ChatMessageType.deviceMessage);
     add(msg);
   }
 

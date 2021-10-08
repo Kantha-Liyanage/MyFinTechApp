@@ -1,12 +1,13 @@
 import 'package:flutter/foundation.dart';
 
 class Account extends ChangeNotifier {
+  int id;
   String _name;
   AccountType _accountType;
   double _currentBalance;
   bool _editable = false;
 
-  Account(this._name, this._accountType, this._currentBalance);
+  Account(this.id, this._name, this._accountType, this._currentBalance);
 
   String get name => _name;
   set name(String name) {

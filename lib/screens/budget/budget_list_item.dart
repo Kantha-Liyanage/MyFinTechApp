@@ -1,109 +1,95 @@
 import 'package:flutter/material.dart';
+import 'package:my_fintech_app/models/budget_categories_list.dart';
 import 'package:my_fintech_app/models/budget_category.dart';
+import 'package:my_fintech_app/services/budget_category_service.dart';
+import 'package:my_fintech_app/widgets/popup_confirmation.dart';
 import 'package:provider/provider.dart';
 
-class BudgetListItem extends StatelessWidget {
+class BudgetListItem extends StatefulWidget {
   const BudgetListItem({Key? key}) : super(key: key);
 
   @override
+  State<BudgetListItem> createState() => _BudgetListItemState();
+}
+
+class _BudgetListItemState extends State<BudgetListItem> {
+  late String tmpName;
+  late double tmpBudgetAmount;
+  late BudgetCategoryType tmpbudgetCategoryType;
+  late TextEditingController textEditingControllerName;
+  late TextEditingController textEditingControllerAmount;
+  late BudgetCategory tag;
+  late BudgetCategoriesList tags;
+
+  @override
   Widget build(BuildContext context) {
-    BudgetCategory tag = Provider.of<BudgetCategory>(context, listen: true);
+    tag = Provider.of<BudgetCategory>(context, listen: true);
+    tags = Provider.of<BudgetCategoriesList>(context, listen: true);
 
     return GestureDetector(
-      child:
-          (tag.editable ? buildEditableWidget(context, tag) : buildViewOnlyWidget(context, tag)),
+      child: (tag.editable
+          ? _buildEditableWidget(context)
+          : _buildViewOnlyWidget(context)),
       onLongPress: () {
-        toggleEditMode(tag);
+        _toggleEditMode(tag);
       },
     );
   }
 
-  toggleEditMode(BudgetCategory tag) {
+  _toggleEditMode(BudgetCategory tag) {
     tag.editable = !tag.editable;
+    tmpName = tag.name;
+    tmpBudgetAmount = tag.budgetAmount;
+    tmpbudgetCategoryType = tag.budgetCategoryType;
+    textEditingControllerName = TextEditingController(text: tmpName);
+    textEditingControllerAmount =
+        TextEditingController(text: tmpBudgetAmount.toString());
   }
 
-  buildViewOnlyWidget(BuildContext context, BudgetCategory tag) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-              blurRadius: .5,
-              spreadRadius: 1.5,
-              color: Colors.black.withOpacity(.20))
-        ],
-        color: Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(15)
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 3,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start, 
-              children: [
-                Text(tag.name, 
-                  style: Theme.of(context).textTheme.caption),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                  child: Text('Utilized Amount',
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                  child: Text('Current Balance',
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                ),
-              ]
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-              Text(tag.budgetAmount.toString(),
-                  style: Theme.of(context).textTheme.caption),
-              Container(
-                padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                child: Text(tag.utilizedAmount.toString(),
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                child: Text(tag.balance.toString(),
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-              ),
-            ]),
-          ),
-        ],
-      )
-    );
-  }
-
-  buildEditableWidget(BuildContext context, BudgetCategory tag) {
-    String tmpName = tag.name;
-    double budgetAmount = tag.budgetAmount;
-
+  _buildEditableWidget(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Row(
           children: [
             Expanded(
-              flex: 3,
+              flex: 2,
               child: TextField(
-                controller: TextEditingController()..text = tag.name,
+                controller: textEditingControllerName,
                 style: Theme.of(context).textTheme.bodyText1,
                 decoration: const InputDecoration(
-                  border: UnderlineInputBorder(), labelText: 'Account Name'),
+                    border: UnderlineInputBorder(), labelText: 'Category'),
                 onChanged: (String newValue) {
                   if (newValue.trim() != '') {
-                    tag.name = newValue;
+                    setState(() {
+                      tmpName = newValue;
+                    });
                   }
                 },
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: DropdownButton<BudgetCategoryType>(
+                value: tmpbudgetCategoryType,
+                icon: const Icon(Icons.keyboard_arrow_down_sharp),
+                iconSize: 24,
+                elevation: 16,
+                style: Theme.of(context).textTheme.bodyText1,
+                onChanged: (BudgetCategoryType? newValue) {
+                  if (newValue != Null) {
+                    setState(() {
+                      tmpbudgetCategoryType = newValue!;
+                    });
+                  }
+                },
+                items: BudgetCategoryTypeWithDescription.getAll()
+                    .map((BudgetCategoryTypeWithDescription value) {
+                  return DropdownMenuItem<BudgetCategoryType>(
+                    value: value.budgetCategoryType,
+                    child: Text(value.name),
+                  );
+                }).toList(),
               ),
             ),
             Expanded(
@@ -114,12 +100,11 @@ class BudgetListItem extends StatelessWidget {
                     border: UnderlineInputBorder(),
                     labelText: 'Monthly (Rs)',
                   ),
-                  controller: TextEditingController()
-                    ..text = tag.budgetAmount.toString(),
+                  controller: textEditingControllerAmount,
                   keyboardType: TextInputType.number,
                   onChanged: (String newValue) {
                     if (newValue.trim() != '') {
-                      tag.budgetAmount = double.parse(newValue);
+                      tmpBudgetAmount = double.parse(newValue);
                     }
                   },
                 ))
@@ -133,7 +118,8 @@ class BudgetListItem extends StatelessWidget {
                   onPressed: () {
                     tag.editable = false;
                     tag.name = tmpName;
-                    tag.budgetAmount = budgetAmount;
+                    tag.budgetCategoryType = tmpbudgetCategoryType;
+                    tag.budgetAmount = tmpBudgetAmount;
                   },
                   icon: const Icon(Icons.check_sharp),
                 )),
@@ -150,7 +136,10 @@ class BudgetListItem extends StatelessWidget {
               flex: 1,
               child: IconButton(
                 onPressed: () {
-                  //Confirm delete?
+                  PopupConfirmation(
+                          'Are you sure you want to delete the selected Category?',
+                          _delete)
+                      .showConfirmationDialog(context);
                 },
                 icon: const Icon(Icons.delete_sharp),
               ),
@@ -159,5 +148,82 @@ class BudgetListItem extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  _delete() {
+    BudgetCategoryService().delete(tag.id);
+    tags.remove(tag);
+  }
+
+  _buildViewOnlyWidget(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: .5,
+                  spreadRadius: 1.5,
+                  color: Colors.black.withOpacity(.20))
+            ],
+            color: Colors.green.shade50,
+            borderRadius: BorderRadius.circular(15)),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 3,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      BudgetCategoryTypeWithDescription.get(
+                              tag.budgetCategoryType)
+                          .name,
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                    Text(tag.name, style: Theme.of(context).textTheme.caption),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                      child: Text(
+                        'Utilized Amount',
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                      child: Text(
+                        'Current Balance',
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                    ),
+                  ]),
+            ),
+            Expanded(
+              flex: 1,
+              child:
+                  Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                Text(
+                  'Amount',
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                Text(tag.budgetAmount.toString(),
+                    style: Theme.of(context).textTheme.caption),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                  child: Text(
+                    tag.utilizedAmount.toString(),
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                  child: Text(
+                    tag.balance.toString(),
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                ),
+              ]),
+            ),
+          ],
+        ));
   }
 }

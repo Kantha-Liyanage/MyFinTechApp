@@ -3,7 +3,6 @@ import 'package:my_fintech_app/models/account.dart';
 import 'package:my_fintech_app/services/account_service.dart';
 
 class AccountsList extends ChangeNotifier {
-  
   List<Account> _items = <Account>[];
 
   AccountsList() {
@@ -11,6 +10,11 @@ class AccountsList extends ChangeNotifier {
   }
 
   List<Account> get items => _items;
+
+  void insert(int index, Account item) {
+    _items.insert(index, item);
+    notifyListeners();
+  }
 
   void add(Account item) {
     _items.add(item);
@@ -24,7 +28,9 @@ class AccountsList extends ChangeNotifier {
 
   Future<void> _getRemoteData() async {
     try {
-      _items = await AccountService().fetchAccounts();
-    } catch (e) {}
+      _items = await AccountService().fetchAll();
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

@@ -53,7 +53,7 @@ class IntroLogonScreen extends StatelessWidget {
       await user.saveToFromLocalStorage();
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => HomeScreen()),
       );
     } catch (er) {}
   }

@@ -21,7 +21,7 @@ class TransactionScreen extends StatelessWidget {
         Provider.of<ConnectivityService>(context, listen: true);
 
     connectivityService.addListener(()=>{
-      handleNetworkConnectivity(connectivityService, chats)
+      _handleNetworkConnectivity(connectivityService, chats)
     });
 
     return Stack(
@@ -55,19 +55,19 @@ class TransactionScreen extends StatelessWidget {
         Expanded(
           child: Align(
             alignment: FractionalOffset.bottomCenter,
-            child: ChatBox(scrollChatToBottom),
+            child: ChatBox(_scrollChatToBottom),
           ),
         ),
       ],
     );
   }
 
-  scrollChatToBottom() {
+  _scrollChatToBottom() {
     _scrollController.animateTo(_scrollController.position.maxScrollExtent + 250,
         duration: const Duration(milliseconds: 1000), curve: Curves.easeOut);
   }
 
-  handleNetworkConnectivity(ConnectivityService connectivityService, ChatMessagesList chats) {
+  _handleNetworkConnectivity(ConnectivityService connectivityService, ChatMessagesList chats) {
     if(connectivityService.connectivityResult == ConnectivityResult.none){
       chats.addOfflineMessage();
     } else{

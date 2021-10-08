@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: _title,
       theme: getTheme(),
-        home: loggedIn ? const HomeScreen() : const IntroLogonScreen(),
+        home: loggedIn ? HomeScreen() : const IntroLogonScreen(),
     );
   }
 
@@ -54,8 +54,8 @@ class MyApp extends StatelessWidget {
             fontSize: 48.0, fontWeight: FontWeight.bold, color: Colors.blue),
         caption: TextStyle(fontSize: 18.0, color: Colors.black),
         bodyText1: TextStyle(fontSize: 14.0),
-        bodyText2: TextStyle(fontSize: 10.0, color: Colors.black38),
-        subtitle1: TextStyle(fontSize: 12.0, color: Colors.black87),
+        bodyText2: TextStyle(fontSize: 14.0, color: Colors.black38),
+        subtitle1: TextStyle(fontSize: 14.0, color: Colors.black),
       ),
     );
   }

@@ -26,7 +26,6 @@ class AccountScreen extends StatelessWidget {
                   value: accounts.items[index],
                   child: const AccountListItem(),
                 );  
-                //return AccountBox(accounts.items[index]);
               },
               separatorBuilder: (BuildContext context, int index) {
                 return const Divider(

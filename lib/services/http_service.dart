@@ -11,14 +11,28 @@ class HTTPSerivce {
   }
 
   Future<Response> authenticatedHttpGet(String api) async {
+    var headers = await _getHeaders();
+    return await http.get(Uri.parse(apiBaseURL + api), headers: headers);
+  }
+
+  Future<Response> authenticatedHttpPost(String api, Object body) async {
+    var headers = await _getHeaders();
+    return await http.post(Uri.parse(apiBaseURL + api), headers: headers, body: body);
+  }
+  Future<Response> authenticatedHttpDelete(String api, Object body) async {
+    var headers = await _getHeaders();
+    return await http.delete(Uri.parse(apiBaseURL + api), headers: headers, body: body);
+  }
+
+  Future<Response> authenticatedHttpPatch(String api, Object body) async {
+    var headers = await _getHeaders();
+    return await http.patch(Uri.parse(apiBaseURL + api), headers: headers, body: body);
+  }
+
+  _getHeaders() async {
     if (HTTPSerivce.accessToken.isEmpty) {
       accessToken = await User.getAccessToken();
     }
-
-    var apiHeaders = {
-      "authorization" : "Bearer " + accessToken
-    };
-
-    return await http.get(Uri.parse(apiBaseURL + api), headers: apiHeaders);
+    return {"authorization": "Bearer " + accessToken};
   }
 }

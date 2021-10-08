@@ -8,6 +8,7 @@ MERGED from /home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/Andr
 MERGED from [:camera] /home/kantha/Documents/GitHub/MyFinTechApp/build/camera/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-10:12
 MERGED from [:flutter_plugin_android_lifecycle] /home/kantha/Documents/GitHub/MyFinTechApp/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:shared_preferences] /home/kantha/Documents/GitHub/MyFinTechApp/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:fluttertoast] /home/kantha/Documents/GitHub/MyFinTechApp/build/fluttertoast/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:path_provider] /home/kantha/Documents/GitHub/MyFinTechApp/build/path_provider/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:connectivity_plus] /home/kantha/Documents/GitHub/MyFinTechApp/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.fragment:fragment:1.1.0] /home/kantha/.gradle/caches/transforms-2/files-2.1/2fd9120a6da4df3dbabdd40f6a2d8995/fragment-1.1.0/AndroidManifest.xml:17:1-24:12
@@ -110,6 +111,8 @@ MERGED from [:flutter_plugin_android_lifecycle] /home/kantha/Documents/GitHub/My
 MERGED from [:flutter_plugin_android_lifecycle] /home/kantha/Documents/GitHub/MyFinTechApp/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:shared_preferences] /home/kantha/Documents/GitHub/MyFinTechApp/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:shared_preferences] /home/kantha/Documents/GitHub/MyFinTechApp/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:fluttertoast] /home/kantha/Documents/GitHub/MyFinTechApp/build/fluttertoast/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:fluttertoast] /home/kantha/Documents/GitHub/MyFinTechApp/build/fluttertoast/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] /home/kantha/Documents/GitHub/MyFinTechApp/build/path_provider/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] /home/kantha/Documents/GitHub/MyFinTechApp/build/path_provider/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:connectivity_plus] /home/kantha/Documents/GitHub/MyFinTechApp/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44

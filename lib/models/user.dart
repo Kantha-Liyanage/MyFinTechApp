@@ -42,4 +42,9 @@ class User {
       return false;
     }
   }
+
+  static Future<bool> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setString('accessToken', '');
+  }
 }

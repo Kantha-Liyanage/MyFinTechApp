@@ -11,6 +11,11 @@ class BudgetCategoriesList extends ChangeNotifier {
 
   List<BudgetCategory> get items => _items;
 
+   void insert(int index, BudgetCategory item) {
+    _items.insert(index, item);
+    notifyListeners();
+  }
+
   void add(BudgetCategory item) {
     _items.add(item);
     notifyListeners();
@@ -23,7 +28,7 @@ class BudgetCategoriesList extends ChangeNotifier {
 
   Future<void> _getRemoteData() async {
     try {
-      _items = await BudgetCategoryService().fetchBudgetCategories();
+      _items = await BudgetCategoryService().fetchAll();
     } catch (e) {}
   }
 }

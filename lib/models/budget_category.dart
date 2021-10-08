@@ -1,13 +1,15 @@
 import 'package:flutter/foundation.dart';
 
 class BudgetCategory extends ChangeNotifier {
+  int id;
   String _name;
   BudgetCategoryType budgetCategoryType;
   double _budgetAmount;
   double _utilizedAmount;
   bool _editable = false;
 
-  BudgetCategory(this._name, this.budgetCategoryType, this._budgetAmount, this._utilizedAmount);
+  BudgetCategory(this.id, this._name, this.budgetCategoryType, this._budgetAmount,
+      this._utilizedAmount);
 
   String get name => _name;
   set name(String name) {
@@ -43,16 +45,18 @@ class BudgetCategoryTypeWithDescription {
   BudgetCategoryTypeWithDescription(this.name, this.budgetCategoryType);
 
   static List<BudgetCategoryTypeWithDescription> getAll() {
-    List<BudgetCategoryTypeWithDescription> list = <BudgetCategoryTypeWithDescription>[
+    List<BudgetCategoryTypeWithDescription> list =
+        <BudgetCategoryTypeWithDescription>[
       BudgetCategoryTypeWithDescription('Income', BudgetCategoryType.income),
       BudgetCategoryTypeWithDescription('Expense', BudgetCategoryType.expense),
     ];
     return list;
   }
 
-  static BudgetCategoryTypeWithDescription get(BudgetCategoryType budgetCategoryType) {
-    return BudgetCategoryTypeWithDescription.getAll()
-        .firstWhere((element) => element.budgetCategoryType == budgetCategoryType);
+  static BudgetCategoryTypeWithDescription get(
+      BudgetCategoryType budgetCategoryType) {
+    return BudgetCategoryTypeWithDescription.getAll().firstWhere(
+        (element) => element.budgetCategoryType == budgetCategoryType);
   }
 }
 

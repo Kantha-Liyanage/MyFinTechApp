@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:my_fintech_app/screens/transaction/full_screen_camera.dart';
+import 'package:my_fintech_app/widgets/popup_error.dart';
 import 'package:provider/provider.dart';
 import 'package:my_fintech_app/models/accounts_list.dart';
 import 'package:my_fintech_app/models/chat_message.dart';
@@ -32,10 +33,11 @@ class _ChatBoxState extends State<ChatBox> {
     ChatMessagesList chatMessages =
         Provider.of<ChatMessagesList>(context, listen: true);
     AccountsList accounts = Provider.of<AccountsList>(context, listen: true);
-    BudgetCategoriesList tags = Provider.of<BudgetCategoriesList>(context, listen: true);
+    BudgetCategoriesList tags =
+        Provider.of<BudgetCategoriesList>(context, listen: true);
 
     return Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-      Visibility(visible: suggestionBarVisible, child: suggestionBar()),
+      Visibility(visible: suggestionBarVisible, child: _suggestionBar()),
       Row(
         children: [
           Expanded(
@@ -47,7 +49,7 @@ class _ChatBoxState extends State<ChatBox> {
                   onChanged: (value) {
                     setState(() {
                       suggestionBarVisible =
-                          getSuggestions(accounts, tags, value);
+                          _getSuggestions(accounts, tags, value);
                     });
                   },
                   controller: _controller,
@@ -71,10 +73,12 @@ class _ChatBoxState extends State<ChatBox> {
                       icon: const Icon(Icons.photo_camera_sharp),
                       onPressed: () async {
                         final cameras = await availableCameras();
-                        await Future.delayed(const Duration(milliseconds : 200));
+                        await Future.delayed(const Duration(milliseconds: 200));
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => FullScreenCamera(cameras.first, widget.scrollChatToBottom)),
+                          MaterialPageRoute(
+                              builder: (context) => FullScreenCamera(
+                                  cameras.first, widget.scrollChatToBottom)),
                         );
                       },
                     ),
@@ -86,7 +90,7 @@ class _ChatBoxState extends State<ChatBox> {
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 12),
                   child: ElevatedButton(
                     onPressed: () {
-                      sendChat(chatMessages, accounts, tags);
+                      _sendChat(context, chatMessages, accounts, tags);
                     },
                     child: const Icon(Icons.send_sharp),
                     style: ElevatedButton.styleFrom(
@@ -99,7 +103,7 @@ class _ChatBoxState extends State<ChatBox> {
     ]);
   }
 
-  suggestionBar() {
+  _suggestionBar() {
     return Container(
         margin: const EdgeInsets.fromLTRB(0, 0, 0, 1),
         decoration: BoxDecoration(
@@ -114,24 +118,24 @@ class _ChatBoxState extends State<ChatBox> {
           children: [
             Expanded(
               flex: 1,
-              child: seggestionButton(suggestions.items[0]),
+              child: _seggestionButton(suggestions.items[0]),
             ),
             Expanded(
               flex: 1,
-              child: seggestionButton(suggestions.items[1]),
+              child: _seggestionButton(suggestions.items[1]),
             ),
             Expanded(
               flex: 1,
-              child: seggestionButton(suggestions.items[2]),
+              child: _seggestionButton(suggestions.items[2]),
             ),
           ],
         ));
   }
 
-  seggestionButton(Suggestion seggestion) {
+  _seggestionButton(Suggestion seggestion) {
     return TextButton(
         onPressed: () {
-          insertSuggestion(seggestion.actualValue);
+          _insertSuggestion(seggestion.actualValue);
         },
         child: Text(
           seggestion.displayValue,
@@ -139,13 +143,13 @@ class _ChatBoxState extends State<ChatBox> {
         ));
   }
 
-  sendChat(
-      ChatMessagesList chatMessages, AccountsList accounts, BudgetCategoriesList tags) {
+  _sendChat(BuildContext context, ChatMessagesList chatMessages,
+      AccountsList accounts, BudgetCategoriesList tags) {
     if (_controller.text.trim() == '') {
       return;
     }
 
-    ChatMessage msg = ChatMessage();
+    ChatMessage msg;
 
     if (Transaction.isAnAttemptedTransaction(_controller.text)) {
       //validate transaction
@@ -154,7 +158,7 @@ class _ChatBoxState extends State<ChatBox> {
             _controller.text.trim(), accounts.items, tags.items);
         msg = _buildUserChatMessage(_controller.text, transaction);
       } catch (e) {
-        _showMyDialog(e.toString());
+        PopupError(e.toString()).showErrorDialog(context);
         return;
       }
     } else {
@@ -169,52 +173,29 @@ class _ChatBoxState extends State<ChatBox> {
   }
 
   ChatMessage _buildUserChatMessage(String text, [Transaction? transaction]) {
-    ChatMessage msg = ChatMessage();
+    String message = '';
+    
     if (transaction != null) {
-      msg.message = '💵 ' + transaction.account;
-      msg.message += '\n🏷 ' + transaction.tag;
-      msg.message += '\n💰 ' + transaction.amount.toString();
-      msg.message += '\n🗓 ' + transaction.date;
+      message = '💵 ' + transaction.account;
+      message += '\n🏷 ' + transaction.tag;
+      message += '\n💰 ' + transaction.amount.toString();
+      message += '\n🗓 ' + transaction.date;
     } else {
-      msg.message = text;
+      message = text;
     }
-    msg.messageType = ChatMessageType.userMessage;
-    msg.createdDate = 'Today';
-    msg.createdTime = 'Now';
-    msg.savedOnline = false;
-    msg.deleted = false;
+
+    ChatMessage msg = ChatMessage.user(message, ChatMessageType.userMessage, 'Today', 'Now', false);
     return msg;
   }
 
-  ChatMessage _buildDeviceChatMessage(String text) {
-    ChatMessage msg = ChatMessage();
-    msg.message = text;
-    msg.messageType = ChatMessageType.deviceMessage;
-    msg.createdDate = 'Today';
-    msg.createdTime = 'Now';
-    msg.savedOnline = false;
-    msg.deleted = false;
-    return msg;
-  }
-
-  ChatMessage _buildServerChatMessage(String text) {
-    ChatMessage msg = ChatMessage();
-    msg.message = text;
-    msg.messageType = ChatMessageType.serverMessage;
-    msg.createdDate = 'Today';
-    msg.createdTime = 'Now';
-    msg.savedOnline = false;
-    msg.deleted = false;
-    return msg;
-  }
-
-  insertSuggestion(String text) {
+  _insertSuggestion(String text) {
     _controller.text = text;
     _controller.selection = TextSelection.fromPosition(
         TextPosition(offset: _controller.text.length));
   }
 
-  bool getSuggestions(AccountsList accounts, BudgetCategoriesList tags, String value) {
+  bool _getSuggestions(
+      AccountsList accounts, BudgetCategoriesList tags, String value) {
     if (value.isEmpty) {
       return false;
     }
@@ -260,35 +241,5 @@ class _ChatBoxState extends State<ChatBox> {
     }
 
     return false;
-  }
-
-  Future<void> _showMyDialog(String message) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('FinChat'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(
-                  message + '\nPlease correct.',
-                  style: Theme.of(context).textTheme.caption,
-                ),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 }

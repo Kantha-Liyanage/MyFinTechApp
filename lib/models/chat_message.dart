@@ -10,6 +10,16 @@ class ChatMessage extends ChangeNotifier {
   bool _deleted = false;
   String imagePath = '';
 
+  ChatMessage.user(this.message, this.messageType, this.createdDate, this.createdTime, this._savedOnline);
+
+  ChatMessage.device(this.message, this.messageType);
+
+  ChatMessage.photo(
+      this.imagePath, this.messageType, this.createdDate, this.createdTime);
+
+  ChatMessage(this.id, this.message, this.messageType, this.createdDate,
+      this.createdTime, this._savedOnline, this._deleted, this.imagePath);
+
   bool get savedOnline => _savedOnline;
   set savedOnline(bool savedOnline) {
     _savedOnline = savedOnline;
