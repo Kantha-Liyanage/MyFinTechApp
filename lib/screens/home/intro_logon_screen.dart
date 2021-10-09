@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_fintech_app/models/user.dart';
 import 'package:my_fintech_app/screens/home/home_screen.dart';
 import 'package:my_fintech_app/services/auth_service.dart';
+import 'package:my_fintech_app/widgets/popup_error.dart';
 
 class IntroLogonScreen extends StatelessWidget {
   const IntroLogonScreen({Key? key}) : super(key: key);
@@ -38,7 +39,7 @@ class IntroLogonScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Login using your OAuth2 Provider',
+                          'OAuth2 Login',
                           style: Theme.of(context).textTheme.caption,
                         ),
                       ]))),
@@ -53,8 +54,10 @@ class IntroLogonScreen extends StatelessWidget {
       await user.saveToFromLocalStorage();
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
-    } catch (er) {}
+    } catch (er) {
+      PopupError(er.toString()).showErrorDialog(context);
+    }
   }
 }

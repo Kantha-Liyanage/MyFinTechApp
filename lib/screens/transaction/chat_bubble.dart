@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:my_fintech_app/widgets/popup_confirmation.dart';
 import 'package:provider/provider.dart';
 import 'package:my_fintech_app/models/chat_message.dart';
 
 class ChatBubble extends StatelessWidget {
-
   const ChatBubble({Key? key}) : super(key: key);
 
   @override
@@ -52,62 +52,89 @@ class ChatBubble extends StatelessWidget {
         ? Icons.cloud_done_rounded
         : Icons.cloud_off_rounded;
 
-    return Column(
-      crossAxisAlignment: messageAlignment,
-      children: <Widget>[
-        Container(
-          margin: const EdgeInsets.fromLTRB(4, 4, 4, 16),
-          padding: const EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                  blurRadius: .5,
-                  spreadRadius: 1.5,
-                  color: Colors.black.withOpacity(.20))
-            ],
-            color: messageColor,
-            borderRadius: messageRadius,
-          ),
-          child: Stack(
-            children: <Widget>[
-              Visibility(
-                visible: isDeviceMessageMode,
-                child: Text(chatMessage.message,
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
+    //Format
+    String message = '';
+    if (chatMessage.transaction) {
+      message = _formatTransaction(chatMessage.message);
+    } else {
+      message = chatMessage.message;
+      if (message.length < 30) {
+        message = message.padRight(30);
+      }
+    }
+
+    return GestureDetector(
+        onLongPress: () {
+          PopupConfirmation('Are sure you want to delete this entry?', () {})
+              .showConfirmationDialog(context);
+        },
+        child: Column(
+          crossAxisAlignment: messageAlignment,
+          children: <Widget>[
+            Container(
+              margin: const EdgeInsets.fromLTRB(4, 4, 4, 16),
+              padding: const EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      blurRadius: .5,
+                      spreadRadius: 1.5,
+                      color: Colors.black.withOpacity(.20))
+                ],
+                color: messageColor,
+                borderRadius: messageRadius,
               ),
-              Visibility(
-                visible: !isDeviceMessageMode,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
-                  child: Text(chatMessage.message,
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                ),
-              ),
-              Visibility(
-                  visible: !isDeviceMessageMode,
-                  child: Positioned(
-                    bottom: 0.0,
-                    right: 0.0,
-                    child: Row(
-                      children: <Widget>[
-                        Text(chatMessage.createdTime,
-                          style: Theme.of(context).textTheme.bodyText2),
-                        const SizedBox(width: 3.0),
-                        Icon(
-                          iconStatus,
-                          size: 12.0,
-                          color: Colors.black38,
-                        )
-                      ],
+              child: Stack(
+                children: <Widget>[
+                  Visibility(
+                    visible: isDeviceMessageMode,
+                    child: Text(
+                      chatMessage.message,
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ),
-                ),
-            ],
-          ),
-        )
-      ],
-    );
+                  Visibility(
+                    visible: !isDeviceMessageMode,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
+                      child: Text(
+                        message,
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: !isDeviceMessageMode,
+                    child: Positioned(
+                      bottom: 0.0,
+                      right: 0.0,
+                      child: Row(
+                        children: <Widget>[
+                          Text(chatMessage.createdDate,
+                              style: Theme.of(context).textTheme.bodyText2),
+                          const SizedBox(width: 3.0),
+                          Icon(
+                            iconStatus,
+                            size: 12.0,
+                            color: Colors.black38,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ));
+  }
+
+  String _formatTransaction(String message) {
+    String tmpMessage = message;
+    tmpMessage = tmpMessage.replaceFirst('@', '💵 ');
+    tmpMessage = tmpMessage.replaceFirst('#', '\n🏷 ');
+    tmpMessage = tmpMessage.replaceFirst('+', '\n💰 ');
+    tmpMessage = tmpMessage.replaceFirst('&', '\n🗓 ');
+    return tmpMessage;
   }
 }

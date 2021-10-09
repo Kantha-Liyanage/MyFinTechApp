@@ -29,6 +29,7 @@ class BudgetCategoriesList extends ChangeNotifier {
   Future<void> _getRemoteData() async {
     try {
       _items = await BudgetCategoryService().fetchAll();
+      notifyListeners();
     } catch (e) {}
   }
 }

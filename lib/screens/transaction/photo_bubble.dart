@@ -62,7 +62,7 @@ class PhotoBubble extends StatelessWidget {
                 right: 0.0,
                 child: Row(
                   children: <Widget>[
-                    Text('Now',
+                    Text(chatMessage.createdDate,
                       style: Theme.of(context).textTheme.bodyText2),
                   ],
                 ),

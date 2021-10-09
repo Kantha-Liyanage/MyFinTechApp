@@ -29,6 +29,7 @@ class AccountsList extends ChangeNotifier {
   Future<void> _getRemoteData() async {
     try {
       _items = await AccountService().fetchAll();
+      notifyListeners();
     } catch (e) {
       print(e.toString());
     }

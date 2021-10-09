@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: _title,
       theme: getTheme(),
-        home: loggedIn ? HomeScreen() : const IntroLogonScreen(),
+        home: loggedIn ? const HomeScreen() : const IntroLogonScreen(),
     );
   }
 

@@ -7,18 +7,29 @@ class ChatMessage extends ChangeNotifier {
   String createdDate = '';
   String createdTime = '';
   bool _savedOnline = false;
+  bool transaction = false;
   bool _deleted = false;
   String imagePath = '';
+  dynamic reportData;
 
   ChatMessage.user(this.message, this.messageType, this.createdDate, this.createdTime, this._savedOnline);
 
   ChatMessage.device(this.message, this.messageType);
 
-  ChatMessage.photo(
-      this.imagePath, this.messageType, this.createdDate, this.createdTime);
+  ChatMessage.photo(this.imagePath, this.messageType, this.createdDate, this.createdTime);
 
-  ChatMessage(this.id, this.message, this.messageType, this.createdDate,
-      this.createdTime, this._savedOnline, this._deleted, this.imagePath);
+  ChatMessage.report(this.reportData, this.messageType);
+
+  ChatMessage(
+      this.id,
+      this.message,
+      this.messageType,
+      this.createdDate,
+      this.createdTime,
+      this._savedOnline,
+      this.transaction,
+      this._deleted,
+      this.imagePath);
 
   bool get savedOnline => _savedOnline;
   set savedOnline(bool savedOnline) {

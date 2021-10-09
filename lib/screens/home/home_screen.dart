@@ -8,6 +8,7 @@ import 'package:my_fintech_app/screens/account/account_screen.dart';
 import 'package:my_fintech_app/screens/budget/budget_screen.dart';
 import 'package:my_fintech_app/screens/home/intro_logon_screen.dart';
 import 'package:my_fintech_app/screens/transaction/transaction_screen.dart';
+import 'package:my_fintech_app/services/util.dart';
 import 'package:my_fintech_app/widgets/popup_confirmation.dart';
 import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -125,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen>
       accountCount++;
     });
     accounts.insert(0, acc);
-    _showToast("New account added.");
+    Util.showToast("New account added.");
   }
 
   _addNewCategory() {
@@ -135,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen>
       categoryCount++;
     });
     tags.insert(0, tag);
-    _showToast("New Category added.");
+    Util.showToast("New Category added.");
   }
 
   void _logout() {
@@ -148,15 +149,5 @@ class _HomeScreenState extends State<HomeScreen>
 
   void _moveToTab(int index) {
     tabController.animateTo(index);
-  }
-
-  void _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        backgroundColor: Colors.grey,
-        textColor: Colors.black,
-        fontSize: 14.0);
   }
 }

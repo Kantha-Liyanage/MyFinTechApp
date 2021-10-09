@@ -2,9 +2,9 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
-class ConnectivityService extends ChangeNotifier{
+class ConnectivityService extends ChangeNotifier {
   // Create our public controller
-  ConnectivityResult connectivityResult = ConnectivityResult.none;
+  static ConnectivityResult connectivityResult = ConnectivityResult.none;
 
   ConnectivityService() {
     // Subscribe to the connectivity Chanaged Steam
@@ -13,5 +13,9 @@ class ConnectivityService extends ChangeNotifier{
       connectivityResult = result;
       notifyListeners();
     });
+  }
+
+  static bool isConnected() {
+    return (connectivityResult != ConnectivityResult.none);
   }
 }

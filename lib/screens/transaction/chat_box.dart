@@ -1,6 +1,10 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:my_fintech_app/screens/transaction/full_screen_camera.dart';
+import 'package:my_fintech_app/screens/transaction/pie_chart_chat_bubble.dart';
+import 'package:my_fintech_app/services/chart_service.dart';
+import 'package:my_fintech_app/services/connectivity_service.dart';
+import 'package:my_fintech_app/services/report_service.dart';
 import 'package:my_fintech_app/widgets/popup_error.dart';
 import 'package:provider/provider.dart';
 import 'package:my_fintech_app/models/accounts_list.dart';
@@ -144,7 +148,7 @@ class _ChatBoxState extends State<ChatBox> {
   }
 
   _sendChat(BuildContext context, ChatMessagesList chatMessages,
-      AccountsList accounts, BudgetCategoriesList tags) {
+      AccountsList accounts, BudgetCategoriesList tags) async {
     if (_controller.text.trim() == '') {
       return;
     }
@@ -157,24 +161,42 @@ class _ChatBoxState extends State<ChatBox> {
         Transaction transaction = Transaction.createTransaction(
             _controller.text.trim(), accounts.items, tags.items);
         msg = _buildUserChatMessage(_controller.text, transaction);
+
+        msg.savedOnline = false;
+        if (ConnectivityService.isConnected()) {
+          ChatService().createTransaction(msg, transaction);
+        }
+
+        chatMessages.add(msg);
       } catch (e) {
         PopupError(e.toString()).showErrorDialog(context);
         return;
       }
     } else {
       msg = _buildUserChatMessage(_controller.text);
+
+      msg.savedOnline = false;
+      if (ConnectivityService.isConnected()) {
+        await ChatService().createMessage(msg);
+      }
+
+      chatMessages.add(msg);
     }
 
-    chatMessages.add(msg);
     suggestions.clearAll();
     suggestionBarVisible = false;
     _controller.clear();
     widget.scrollChatToBottom();
+
+    //Check for report requests
+    if (_isReportRequest(msg.message)) {
+      _showReport(msg.message, chatMessages);
+    }
   }
 
   ChatMessage _buildUserChatMessage(String text, [Transaction? transaction]) {
     String message = '';
-    
+
     if (transaction != null) {
       message = '💵 ' + transaction.account;
       message += '\n🏷 ' + transaction.tag;
@@ -184,7 +206,8 @@ class _ChatBoxState extends State<ChatBox> {
       message = text;
     }
 
-    ChatMessage msg = ChatMessage.user(message, ChatMessageType.userMessage, 'Today', 'Now', false);
+    ChatMessage msg = ChatMessage.user(
+        message, ChatMessageType.userMessage, 'Today', 'Now', false);
     return msg;
   }
 
@@ -241,5 +264,21 @@ class _ChatBoxState extends State<ChatBox> {
     }
 
     return false;
+  }
+
+  bool _isReportRequest(String text) {
+    switch (text.toUpperCase()) {
+      case 'E-YTD':
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  void _showReport(String report, ChatMessagesList chatMessages) {
+    late var data;
+    data = ReportService().fetch(report).whenComplete(() => {
+      chatMessages.add(ChatMessage.report(data, ChatMessageType.serverMessage))
+    });
   }
 }
