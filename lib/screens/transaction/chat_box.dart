@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:my_fintech_app/models/report_repo.dart';
 import 'package:my_fintech_app/screens/transaction/full_screen_camera.dart';
-import 'package:my_fintech_app/screens/transaction/pie_chart_chat_bubble.dart';
 import 'package:my_fintech_app/services/chart_service.dart';
 import 'package:my_fintech_app/services/connectivity_service.dart';
 import 'package:my_fintech_app/services/report_service.dart';
@@ -177,7 +177,7 @@ class _ChatBoxState extends State<ChatBox> {
 
       msg.savedOnline = false;
       if (ConnectivityService.isConnected()) {
-        await ChatService().createMessage(msg);
+        ChatService().createMessage(msg);
       }
 
       chatMessages.add(msg);
@@ -266,19 +266,41 @@ class _ChatBoxState extends State<ChatBox> {
     return false;
   }
 
-  bool _isReportRequest(String text) {
-    switch (text.toUpperCase()) {
-      case 'E-YTD':
-        return true;
-      default:
-        return false;
-    }
+  bool _isReportRequest(String shortCut) {
+    return ReportRepo.repo
+            .indexWhere((element) => element.shortCut == shortCut.toUpperCase()) >
+        0;
   }
 
-  void _showReport(String report, ChatMessagesList chatMessages) {
-    late var data;
-    data = ReportService().fetch(report).whenComplete(() => {
-      chatMessages.add(ChatMessage.report(data, ChatMessageType.serverMessage))
-    });
+  Report _getReport(String text) {
+    return ReportRepo.repo
+        .firstWhere((element) => element.shortCut == text.toUpperCase());
+  }
+
+  void _showReport(String shortCut, ChatMessagesList chatMessages) {
+    Report report = _getReport(shortCut);
+    //Check online
+    if (ConnectivityService.isConnected()) {
+      chatMessages.add(ChatMessage.device(
+          report.title + ' 👇', ChatMessageType.serverMessage));
+
+      if (report.reportType == ReportType.pie) {
+        ReportService().fetchPieChartData(report.shortCut.toUpperCase()).then((data) => {
+              chatMessages.add(
+                  ChatMessage.pieChart(data, ChatMessageType.serverMessage)),
+              widget.scrollChatToBottom()
+            });
+      } else if (report.reportType == ReportType.bar) {
+        ReportService().fetchBarChartData(report.shortCut.toUpperCase()).then((data) => {
+              chatMessages.add(
+                  ChatMessage.barChart(data, ChatMessageType.serverMessage)),
+              widget.scrollChatToBottom()
+            });
+      }
+    } else {
+      chatMessages.add(ChatMessage.device(
+          'Requested report will be available when you are online 🌏',
+          ChatMessageType.serverMessage));
+    }
   }
 }

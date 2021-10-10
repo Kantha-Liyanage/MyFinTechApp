@@ -1,14 +1,16 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:my_fintech_app/models/chat_message.dart';
-import 'package:my_fintech_app/screens/transaction/photo_bubble.dart';
+import 'package:my_fintech_app/screens/transaction/bubbles/bar_chart_chat_bubble.dart';
+import 'package:my_fintech_app/screens/transaction/bubbles/photo_bubble.dart';
+import 'package:my_fintech_app/screens/transaction/bubbles/pie_chart_chat_bubble.dart';
 import 'package:my_fintech_app/services/chart_service.dart';
 import 'package:my_fintech_app/services/connectivity_service.dart';
 import 'package:my_fintech_app/services/util.dart';
 import 'package:provider/provider.dart';
 import 'package:my_fintech_app/models/chat_messages_list.dart';
 import 'package:my_fintech_app/screens/transaction/chat_box.dart';
-import 'package:my_fintech_app/screens/transaction/chat_bubble.dart';
+import 'package:my_fintech_app/screens/transaction/bubbles/chat_bubble.dart';
 
 class TransactionScreen extends StatelessWidget {
   TransactionScreen({Key? key}) : super(key: key);
@@ -47,7 +49,21 @@ class TransactionScreen extends StatelessWidget {
                         value: chats.items[index],
                         child: const PhotoBubble(),
                       );
-                    } else {
+                    }
+                     else if(chats.items[index].pieChartMessage){
+                      return ChangeNotifierProvider.value(
+                        value: chats.items[index],
+                        child: PieChartChatBubble('', chats.items[index].reportData),
+                      );
+                    } 
+                    else if(chats.items[index].barChartMessage){
+                      return ChangeNotifierProvider.value(
+                        value: chats.items[index],
+                        child: BarChartChatBubble.withActualData(chats.items[index].reportData),
+                      );
+                      
+                    }
+                    else {
                       return ChangeNotifierProvider.value(
                         value: chats.items[index],
                         child: const ChatBubble(),

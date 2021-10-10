@@ -33,8 +33,12 @@ dependencies:
 
   # Kantha
   fluttertoast:
-  pie_chart: ^5.0.1
-  connectivity_plus: ^1.2.0
+  pie_chart:
+  charts_flutter:
+    git:
+      url: https://github.com/google/charts.git
+      path: charts_flutter
+  connectivity_plus:
   provider:
   camera:
   path_provider:

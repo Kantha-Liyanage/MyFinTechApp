@@ -11,14 +11,24 @@ class ChatMessage extends ChangeNotifier {
   bool _deleted = false;
   String imagePath = '';
   dynamic reportData;
+  bool _pieChart = false;
+  bool _barChart = false;
 
-  ChatMessage.user(this.message, this.messageType, this.createdDate, this.createdTime, this._savedOnline);
+  ChatMessage.user(this.message, this.messageType, this.createdDate,
+      this.createdTime, this._savedOnline);
 
   ChatMessage.device(this.message, this.messageType);
 
-  ChatMessage.photo(this.imagePath, this.messageType, this.createdDate, this.createdTime);
+  ChatMessage.photo(
+      this.imagePath, this.messageType, this.createdDate, this.createdTime);
 
-  ChatMessage.report(this.reportData, this.messageType);
+  ChatMessage.pieChart(this.reportData, this.messageType) {
+    this._pieChart = true;
+  }
+
+  ChatMessage.barChart(this.reportData, this.messageType) {
+    this._barChart = true;
+  }
 
   ChatMessage(
       this.id,
@@ -44,6 +54,10 @@ class ChatMessage extends ChangeNotifier {
   }
 
   bool get photoMessage => (imagePath.isNotEmpty);
+
+  bool get pieChartMessage => _pieChart;
+
+  bool get barChartMessage => _barChart;
 }
 
 enum ChatMessageType { userMessage, serverMessage, deviceMessage }
