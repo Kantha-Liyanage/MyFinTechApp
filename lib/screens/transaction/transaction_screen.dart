@@ -49,21 +49,19 @@ class TransactionScreen extends StatelessWidget {
                         value: chats.items[index],
                         child: const PhotoBubble(),
                       );
-                    }
-                     else if(chats.items[index].pieChartMessage){
+                    } else if (chats.items[index].pieChartMessage) {
                       return ChangeNotifierProvider.value(
                         value: chats.items[index],
-                        child: PieChartChatBubble('', chats.items[index].reportData),
+                        child: PieChartChatBubble(
+                            '', chats.items[index].reportData),
                       );
-                    } 
-                    else if(chats.items[index].barChartMessage){
+                    } else if (chats.items[index].barChartMessage) {
                       return ChangeNotifierProvider.value(
                         value: chats.items[index],
-                        child: BarChartChatBubble.withActualData(chats.items[index].reportData),
+                        child: BarChartChatBubble.withActualData(
+                            chats.items[index].reportData),
                       );
-                      
-                    }
-                    else {
+                    } else {
                       return ChangeNotifierProvider.value(
                         value: chats.items[index],
                         child: const ChatBubble(),
@@ -86,13 +84,17 @@ class TransactionScreen extends StatelessWidget {
   }
 
   _scrollChatToBottom() {
-    _scrollController.animateTo(
-      (_scrollController.position.maxScrollExtent + _scrollController.position.extentAfter),
-      duration: const Duration(milliseconds: 1000),
-      curve: Curves.easeOut);
+    try {
+      _scrollController.animateTo(
+          (_scrollController.position.maxScrollExtent +
+              _scrollController.position.extentAfter),
+          duration: const Duration(milliseconds: 1000),
+          curve: Curves.easeOut);
+    } catch (er) {}
   }
 
-  _handleNetworkConnectivity(ConnectivityService connectivityService, ChatMessagesList chats) {
+  _handleNetworkConnectivity(
+      ConnectivityService connectivityService, ChatMessagesList chats) {
     if (ConnectivityService.connectivityResult == ConnectivityResult.none) {
       chats.addOfflineMessage();
       _scrollChatToBottom();
@@ -103,7 +105,8 @@ class TransactionScreen extends StatelessWidget {
 
   Future<void> _loadMoreCharts(ChatMessagesList chats) async {
     try {
-      List<ChatMessage> olderChats = await ChatService().fetch(ChatService.pageCount);
+      List<ChatMessage> olderChats =
+          await ChatService().fetch(ChatService.pageCount);
       chats.addOlderMessages(olderChats);
       ChatService.pageCount += 10;
       Util.showToast('Older entries retrieved.');

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:my_fintech_app/models/budget_categories_list.dart';
-import 'package:my_fintech_app/screens/budget/budget_list_item.dart';
+import 'package:my_fintech_app/screens/budget/category_list_item.dart';
 import 'package:my_fintech_app/widgets/tab_title.dart';
 import 'package:provider/provider.dart';
 
-class BudgetScreen extends StatelessWidget {
-  const BudgetScreen({Key? key}) : super(key: key);
+class CategoryScreen extends StatelessWidget {
+  const CategoryScreen({Key? key}) : super(key: key);
  
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class BudgetScreen extends StatelessWidget {
 
     return Column(
       children: [
-        const TabTitle('Monthly Budget'),
+        const TabTitle('Categories'),
         Expanded(
           flex: 1,
           child: Padding(
@@ -24,7 +24,7 @@ class BudgetScreen extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return ChangeNotifierProvider.value(
                   value: tags.items[index],
-                  child: const BudgetListItem(),
+                  child: const CategoryListItem(),
                 ); 
               }, 
               separatorBuilder: (BuildContext context, int index) {

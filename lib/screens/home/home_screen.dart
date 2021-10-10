@@ -5,13 +5,12 @@ import 'package:my_fintech_app/models/budget_categories_list.dart';
 import 'package:my_fintech_app/models/budget_category.dart';
 import 'package:my_fintech_app/models/user.dart';
 import 'package:my_fintech_app/screens/account/account_screen.dart';
-import 'package:my_fintech_app/screens/budget/budget_screen.dart';
+import 'package:my_fintech_app/screens/budget/category_screen.dart';
 import 'package:my_fintech_app/screens/home/intro_logon_screen.dart';
 import 'package:my_fintech_app/screens/transaction/transaction_screen.dart';
 import 'package:my_fintech_app/services/util.dart';
 import 'package:my_fintech_app/widgets/popup_confirmation.dart';
 import 'package:provider/provider.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -27,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen>
   late TabController tabController;
   late AccountsList accounts;
   late BudgetCategoriesList tags;
-  List<String> moreMenuItems = ['New Account', 'New Budget Category', 'Logout'];
+  List<String> moreMenuItems = ['New Account', 'New Category', 'Logout'];
 
   @override
   void initState() {
@@ -75,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen>
               ),
               Tab(
                 icon: Icon(Icons.tune_sharp),
-                text: 'BUDGET',
+                text: 'CATEGORIES',
               ),
             ],
           ),
@@ -90,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen>
               child: AccountScreen(),
             ),
             const Center(
-              child: BudgetScreen(),
+              child: CategoryScreen(),
             ),
           ],
         ),

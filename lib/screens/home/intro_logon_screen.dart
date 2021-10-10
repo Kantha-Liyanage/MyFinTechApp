@@ -10,7 +10,7 @@ class IntroLogonScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Colors.blue.shade200,
       alignment: Alignment.center,
       child: Column(
         children: [
@@ -52,9 +52,12 @@ class IntroLogonScreen extends StatelessWidget {
     try {
       User user = await AuthService().authenticate();
       await user.saveToFromLocalStorage();
-      Navigator.push(
+      
+      //Remove all the before this
+      Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const HomeScreen()),
+        (route) => false,
       );
     } catch (er) {
       PopupError(er.toString()).showErrorDialog(context);

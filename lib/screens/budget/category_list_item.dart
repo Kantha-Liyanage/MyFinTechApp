@@ -5,14 +5,14 @@ import 'package:my_fintech_app/services/budget_category_service.dart';
 import 'package:my_fintech_app/widgets/popup_confirmation.dart';
 import 'package:provider/provider.dart';
 
-class BudgetListItem extends StatefulWidget {
-  const BudgetListItem({Key? key}) : super(key: key);
+class CategoryListItem extends StatefulWidget {
+  const CategoryListItem({Key? key}) : super(key: key);
 
   @override
-  State<BudgetListItem> createState() => _BudgetListItemState();
+  State<CategoryListItem> createState() => _CategoryListItemState();
 }
 
-class _BudgetListItemState extends State<BudgetListItem> {
+class _CategoryListItemState extends State<CategoryListItem> {
   late String tmpName;
   late double tmpBudgetAmount;
   late BudgetCategoryType tmpbudgetCategoryType;

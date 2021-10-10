@@ -269,7 +269,7 @@ class _ChatBoxState extends State<ChatBox> {
   bool _isReportRequest(String shortCut) {
     return ReportRepo.repo
             .indexWhere((element) => element.shortCut == shortCut.toUpperCase()) >
-        0;
+        -1;
   }
 
   Report _getReport(String text) {

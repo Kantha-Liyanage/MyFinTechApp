@@ -33,6 +33,7 @@ class PopupConfirmation extends StatelessWidget {
               child: const Text('YES'),
               onPressed: () {
                 Navigator.of(context).pop();
+                //External action
                 action();
               },
             ),
