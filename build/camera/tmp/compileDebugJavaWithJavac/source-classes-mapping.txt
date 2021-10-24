@@ -66,8 +66,6 @@ io/flutter/plugins/camera/Camera.java
  io.flutter.plugins.camera.Camera$4
  io.flutter.plugins.camera.Camera$5
  io.flutter.plugins.camera.Camera$6
- io.flutter.plugins.camera.Camera$HandlerFactory
- io.flutter.plugins.camera.Camera$HandlerThreadFactory
  io.flutter.plugins.camera.ErrorCallback
 io/flutter/plugins/camera/features/CameraFeature.java
  io.flutter.plugins.camera.features.CameraFeature

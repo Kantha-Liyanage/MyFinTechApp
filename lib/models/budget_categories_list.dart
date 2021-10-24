@@ -11,9 +11,10 @@ class BudgetCategoriesList extends ChangeNotifier {
 
   List<BudgetCategory> get items => _items;
 
-   void insert(int index, BudgetCategory item) {
+  void insert(int index, BudgetCategory item) {
     _items.insert(index, item);
     notifyListeners();
+    BudgetCategoryService().create(item);
   }
 
   void add(BudgetCategory item) {

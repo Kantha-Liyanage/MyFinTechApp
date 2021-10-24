@@ -15,6 +15,10 @@ class ConnectivityService extends ChangeNotifier {
     });
   }
 
+  initialCheck() async {
+    connectivityResult = await Connectivity().checkConnectivity();
+  }
+
   static bool isConnected() {
     return (connectivityResult != ConnectivityResult.none);
   }

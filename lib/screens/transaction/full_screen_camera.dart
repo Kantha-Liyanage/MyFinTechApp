@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:my_fintech_app/models/chat_message.dart';
 import 'package:my_fintech_app/models/chat_messages_list.dart';
+import 'package:my_fintech_app/services/chart_service.dart';
 import 'package:provider/provider.dart';
 import 'package:image/image.dart' as img;
 
@@ -79,12 +80,13 @@ class _FullScreenCameraState extends State<FullScreenCamera> {
 
             await _fixRotation(image.path);
 
-            ChatMessage msg = ChatMessage.photo(image.path, ChatMessageType.userMessage, 'Today', 'Now');
+            ChatMessage msg = ChatMessage.photo(
+                image.path, ChatMessageType.userMessage, 'Today', 'Now');
             chatMessages.add(msg);
+            ChatService().createMessage(msg);
 
             Navigator.pop(context);
             widget.scrollChatToBottom();
-
           } catch (e) {}
         },
         child: const Icon(Icons.camera_alt),

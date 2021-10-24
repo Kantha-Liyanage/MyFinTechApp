@@ -14,6 +14,7 @@ class AccountsList extends ChangeNotifier {
   void insert(int index, Account item) {
     _items.insert(index, item);
     notifyListeners();
+    AccountService().create(item);
   }
 
   void add(Account item) {

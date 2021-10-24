@@ -7,9 +7,10 @@ class BudgetCategory extends ChangeNotifier {
   double _budgetAmount;
   double _utilizedAmount;
   bool _editable = false;
+  bool offline = false;
 
-  BudgetCategory(this.id, this._name, this.budgetCategoryType, this._budgetAmount,
-      this._utilizedAmount);
+  BudgetCategory(this.id, this._name, this.budgetCategoryType,
+      this._budgetAmount, this._utilizedAmount, this.offline);
 
   String get name => _name;
   set name(String name) {

@@ -5,6 +5,7 @@ import 'package:my_fintech_app/models/budget_categories_list.dart';
 import 'package:my_fintech_app/models/user.dart';
 import 'package:my_fintech_app/screens/home/home_screen.dart';
 import 'package:my_fintech_app/screens/home/intro_logon_screen.dart';
+import 'package:my_fintech_app/services/battery_service.dart';
 import 'package:my_fintech_app/services/connectivity_service.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
@@ -12,14 +13,16 @@ import 'dart:async';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool loggedIn = await User.isLoggedIn();
+  await ConnectivityService().initialCheck();
+  await BatteryService().initialCheck();
 
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => ConnectivityService()),
         ChangeNotifierProvider(create: (context) => AccountsList()),
         ChangeNotifierProvider(create: (context) => BudgetCategoriesList()),
         ChangeNotifierProvider(create: (context) => ChatMessagesList()),
-        ChangeNotifierProvider(create: (context) => ConnectivityService()),
       ],
       child: MyApp(loggedIn),
     ),
@@ -33,13 +36,12 @@ class MyApp extends StatelessWidget {
   MyApp(this.loggedIn, {Key? key}) : super(key: key);
 
   static const String _title = 'FinChat';
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: _title,
       theme: getTheme(),
-        home: loggedIn ? const HomeScreen() : const IntroLogonScreen(),
+      home: loggedIn ? const HomeScreen() : const IntroLogonScreen(),
     );
   }
 

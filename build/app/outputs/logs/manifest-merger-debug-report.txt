@@ -8,6 +8,8 @@ MERGED from /home/kantha/Documents/GitHub/MyFinTechApp/android/app/src/main/Andr
 MERGED from [:camera] /home/kantha/Documents/GitHub/MyFinTechApp/build/camera/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-10:12
 MERGED from [:flutter_plugin_android_lifecycle] /home/kantha/Documents/GitHub/MyFinTechApp/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:shared_preferences] /home/kantha/Documents/GitHub/MyFinTechApp/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:battery_plus] /home/kantha/Documents/GitHub/MyFinTechApp/build/battery_plus/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:sqflite] /home/kantha/Documents/GitHub/MyFinTechApp/build/sqflite/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:fluttertoast] /home/kantha/Documents/GitHub/MyFinTechApp/build/fluttertoast/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:path_provider] /home/kantha/Documents/GitHub/MyFinTechApp/build/path_provider/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:connectivity_plus] /home/kantha/Documents/GitHub/MyFinTechApp/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
@@ -111,6 +113,10 @@ MERGED from [:flutter_plugin_android_lifecycle] /home/kantha/Documents/GitHub/My
 MERGED from [:flutter_plugin_android_lifecycle] /home/kantha/Documents/GitHub/MyFinTechApp/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:shared_preferences] /home/kantha/Documents/GitHub/MyFinTechApp/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:shared_preferences] /home/kantha/Documents/GitHub/MyFinTechApp/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:battery_plus] /home/kantha/Documents/GitHub/MyFinTechApp/build/battery_plus/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:battery_plus] /home/kantha/Documents/GitHub/MyFinTechApp/build/battery_plus/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] /home/kantha/Documents/GitHub/MyFinTechApp/build/sqflite/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] /home/kantha/Documents/GitHub/MyFinTechApp/build/sqflite/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:fluttertoast] /home/kantha/Documents/GitHub/MyFinTechApp/build/fluttertoast/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:fluttertoast] /home/kantha/Documents/GitHub/MyFinTechApp/build/fluttertoast/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] /home/kantha/Documents/GitHub/MyFinTechApp/build/path_provider/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44

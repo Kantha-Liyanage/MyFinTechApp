@@ -6,8 +6,10 @@ class Account extends ChangeNotifier {
   AccountType _accountType;
   double _currentBalance;
   bool _editable = false;
+  bool offline = false;
 
-  Account(this.id, this._name, this._accountType, this._currentBalance);
+  Account(this.id, this._name, this._accountType, this._currentBalance,
+      this.offline);
 
   String get name => _name;
   set name(String name) {

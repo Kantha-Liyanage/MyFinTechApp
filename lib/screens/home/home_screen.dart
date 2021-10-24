@@ -119,8 +119,8 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   void _addNewAccount() {
-    Account acc =
-        Account(0, 'New Account ' + accountCount.toString(), AccountType.asset, 0);
+    Account acc = Account(0, 'New Account ' + accountCount.toString(),
+        AccountType.asset, 0, true);
     setState(() {
       accountCount++;
     });
@@ -129,8 +129,13 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   _addNewCategory() {
-    BudgetCategory tag =
-        BudgetCategory(0, 'New Category ' + categoryCount.toString() , BudgetCategoryType.expense, 0, 0);
+    BudgetCategory tag = BudgetCategory(
+        0,
+        'New Category ' + categoryCount.toString(),
+        BudgetCategoryType.expense,
+        0,
+        0,
+        true);
     setState(() {
       categoryCount++;
     });

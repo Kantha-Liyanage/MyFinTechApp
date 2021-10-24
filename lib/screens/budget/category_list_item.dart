@@ -120,6 +120,9 @@ class _CategoryListItemState extends State<CategoryListItem> {
                     tag.name = tmpName;
                     tag.budgetCategoryType = tmpbudgetCategoryType;
                     tag.budgetAmount = tmpBudgetAmount;
+
+                    //Update category at server-side
+                    BudgetCategoryService().update(tag);
                   },
                   icon: const Icon(Icons.check_sharp),
                 )),

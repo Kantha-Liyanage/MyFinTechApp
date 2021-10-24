@@ -1,11 +1,16 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:my_fintech_app/models/account.dart';
+import 'package:my_fintech_app/models/budget_category.dart';
 import 'package:my_fintech_app/models/chat_message.dart';
 import 'package:my_fintech_app/screens/transaction/bubbles/bar_chart_chat_bubble.dart';
 import 'package:my_fintech_app/screens/transaction/bubbles/photo_bubble.dart';
 import 'package:my_fintech_app/screens/transaction/bubbles/pie_chart_chat_bubble.dart';
+import 'package:my_fintech_app/services/account_service.dart';
+import 'package:my_fintech_app/services/budget_category_service.dart';
 import 'package:my_fintech_app/services/chart_service.dart';
 import 'package:my_fintech_app/services/connectivity_service.dart';
+import 'package:my_fintech_app/services/database_service.dart';
 import 'package:my_fintech_app/services/util.dart';
 import 'package:provider/provider.dart';
 import 'package:my_fintech_app/models/chat_messages_list.dart';
@@ -24,6 +29,8 @@ class TransactionScreen extends StatelessWidget {
 
     ConnectivityService connectivityService =
         Provider.of<ConnectivityService>(context, listen: true);
+
+    _initalNetworkStatus(chats);
 
     connectivityService.addListener(
         () => {_handleNetworkConnectivity(connectivityService, chats)});
@@ -93,6 +100,15 @@ class TransactionScreen extends StatelessWidget {
     } catch (er) {}
   }
 
+  _initalNetworkStatus(ChatMessagesList chats) {
+    if (ConnectivityService.isConnected()) {
+      chats.removeOfflineMessage();
+    } else {
+      chats.addOfflineMessage();
+      _scrollChatToBottom();
+    }
+  }
+
   _handleNetworkConnectivity(
       ConnectivityService connectivityService, ChatMessagesList chats) {
     if (ConnectivityService.connectivityResult == ConnectivityResult.none) {
@@ -100,6 +116,7 @@ class TransactionScreen extends StatelessWidget {
       _scrollChatToBottom();
     } else {
       chats.removeOfflineMessage();
+      _syncOfflineData(chats);
     }
   }
 
@@ -112,6 +129,42 @@ class TransactionScreen extends StatelessWidget {
       Util.showToast('Older entries retrieved.');
     } catch (er) {
       Util.showToast("No more older messages.");
+    }
+  }
+
+  _syncOfflineData(ChatMessagesList chats) async {
+    //Get offline accounts -------------------------------------------
+    List<Account> accounts = await DatabaseSerivce.getAccounts();
+    //Sync to remote server
+    for (Account acc in accounts) {
+      if (acc.offline) {
+        AccountService().create(acc);
+        acc.offline = false;
+        DatabaseSerivce.updateAccount(acc);
+      }
+    }
+
+    //Get offline categories -------------------------------------------
+    List<BudgetCategory> categories = await DatabaseSerivce.getCategories();
+    //Sync to remote server
+    for (BudgetCategory cat in categories) {
+      if (cat.offline) {
+        BudgetCategoryService().create(cat);
+        cat.offline = false;
+        DatabaseSerivce.updateCategory(cat);
+      }
+    }
+
+    //Get offline chats -------------------------------------------
+    List<ChatMessage> offlineChats = await DatabaseSerivce.getOfflineChats();
+    //Sync to remote server
+    for (ChatMessage chat in offlineChats) {
+      ChatService().createMessage(chat);
+      DatabaseSerivce.removeOfflineChat(chat);
+
+      //Finally :)
+      chats.items.where((offline) => offline.id == chat.id).first.savedOnline =
+          true;
     }
   }
 }

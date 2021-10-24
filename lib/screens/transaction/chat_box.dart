@@ -163,6 +163,7 @@ class _ChatBoxState extends State<ChatBox> {
         msg = _buildUserChatMessage(_controller.text, transaction);
 
         msg.savedOnline = false;
+        ChatService().createMessage(msg);
         if (ConnectivityService.isConnected()) {
           ChatService().createTransaction(msg, transaction);
         }
@@ -176,9 +177,7 @@ class _ChatBoxState extends State<ChatBox> {
       msg = _buildUserChatMessage(_controller.text);
 
       msg.savedOnline = false;
-      if (ConnectivityService.isConnected()) {
-        ChatService().createMessage(msg);
-      }
+      ChatService().createMessage(msg);
 
       chatMessages.add(msg);
     }
@@ -267,8 +266,8 @@ class _ChatBoxState extends State<ChatBox> {
   }
 
   bool _isReportRequest(String shortCut) {
-    return ReportRepo.repo
-            .indexWhere((element) => element.shortCut == shortCut.toUpperCase()) >
+    return ReportRepo.repo.indexWhere(
+            (element) => element.shortCut == shortCut.toUpperCase()) >
         -1;
   }
 
@@ -285,17 +284,21 @@ class _ChatBoxState extends State<ChatBox> {
           report.title + ' 👇', ChatMessageType.serverMessage));
 
       if (report.reportType == ReportType.pie) {
-        ReportService().fetchPieChartData(report.shortCut.toUpperCase()).then((data) => {
-              chatMessages.add(
-                  ChatMessage.pieChart(data, ChatMessageType.serverMessage)),
-              widget.scrollChatToBottom()
-            });
+        ReportService()
+            .fetchPieChartData(report.shortCut.toUpperCase())
+            .then((data) => {
+                  chatMessages.add(ChatMessage.pieChart(
+                      data, ChatMessageType.serverMessage)),
+                  widget.scrollChatToBottom()
+                });
       } else if (report.reportType == ReportType.bar) {
-        ReportService().fetchBarChartData(report.shortCut.toUpperCase()).then((data) => {
-              chatMessages.add(
-                  ChatMessage.barChart(data, ChatMessageType.serverMessage)),
-              widget.scrollChatToBottom()
-            });
+        ReportService()
+            .fetchBarChartData(report.shortCut.toUpperCase())
+            .then((data) => {
+                  chatMessages.add(ChatMessage.barChart(
+                      data, ChatMessageType.serverMessage)),
+                  widget.scrollChatToBottom()
+                });
       }
     } else {
       chatMessages.add(ChatMessage.device(

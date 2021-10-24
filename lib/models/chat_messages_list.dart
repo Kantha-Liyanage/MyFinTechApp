@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:my_fintech_app/models/chat_message.dart';
 import 'package:my_fintech_app/services/chart_service.dart';
@@ -44,5 +42,9 @@ class ChatMessagesList extends ChangeNotifier {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  void refresh() {
+    notifyListeners();
   }
 }
